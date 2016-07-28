@@ -1,0 +1,39 @@
+.btn-create-new {
+    color: #fff;
+    background-color: #adb6bd;
+    border-color: #adb6bd;
+    margin: 5px;
+    margin-top: 0;
+}
+.btn-create-new:hover,.btn-create-new:active,.btn-create-new:focus{
+    background-color: #585e63;
+}
+
+.container {
+    margin: 2px 3px;
+    width: 100%;
+}
+.table>thead>tr>th, 
+.table>tbody>tr>th, 
+.table>tfoot>tr>th, 
+.table>thead>tr>td, 
+.table>tbody>tr>td, 
+.table>tfoot>tr>td {
+    height : 5px;
+    padding: 1px;
+}
+
+table thead tr th{
+    background-color: #adb6bd;
+    color: white;
+}
+
+.formtable-div-block {
+    border : 1px solid grey;
+    border-radius: 5px;
+    padding :5px;
+}
+.formtable-div-block table {
+   margin-bottom: 0;
+}
+
