@@ -164,15 +164,29 @@ class ModelUser extends Model
         return NULL;
     }
 
-    static function get_data()
+    public static function getCountOfRows()
+    {
+        $query = "SELECT COUNT(id) c FROM users;";
+        $result = self::getMySQLDb()->query($query)->fetch();
+        if (isset($result['c'])) return $result['c'];
+        return false;
+    }
+
+    static function get_data(Paginator $paginator = null)
     {
         $data = [];
 
-        $result = self::getMySQLDb()->query("SELECT u.*, "
+        $query = "SELECT u.*, "
             . "ur.role_code, ur.role_name "
             . "FROM users u "
             . "JOIN user_roles ur"
-            . " ON ur.id=u.role_id ")->fetchAll();
+            . " ON ur.id=u.role_id ";
+
+        if ($paginator) {
+            $query .= " LIMIT {$paginator->offset},{$paginator->limit}";
+        }
+
+        $result = self::getMySQLDb()->query($query)->fetchAll();
 
         //var_dump($result); die;
 
@@ -223,9 +237,9 @@ class ModelUser extends Model
                 . " `username`='" . $this->getUsername() . "',"
                 . " `password`='" . $this->getPassword() . "',"
                 . " `token`='" . $this->getToken() . "',"
-                . " `role_id`='" . $this->getRoleId()."'"
+                . " `role_id`='" . $this->getRoleId() . "'"
                 . " WHERE `id`=" . $id;
-           
+
             self::getMySQLDb()->query($sql);
         } else {
 //если id нет - insert

@@ -6,10 +6,17 @@ class ControllerCd extends Controller {
         $access = isset($_SESSION['user']);
         return $access  && parent::getAccess($action);
     }
+    
+    function action_index()
+    {
+        $count = ModelCd::getCountOfRows();
+        $paginator = new Paginator($count, 10);
+        $paginator->offset = isset($_GET['offset']) ? $_GET['offset'] : 0;
+        $data = ModelCd::get_data($paginator);
 
-    function action_index() {
-        $data = ModelCd::get_data();
-        $this->view->generate('cd_list.php', 'template_view.php', $data);
+        $this->view->generate('cd_list.php',
+            'template_view.php',
+            ['data' => $data, 'paginator' => $paginator]);
     }
 
     function action_delete($id) {

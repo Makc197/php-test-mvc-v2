@@ -49,5 +49,7 @@
     <?php endforeach; ?>
 </table>
 
+<?php echo $paginator->html();?>
+
 
 

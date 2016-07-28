@@ -19,9 +19,25 @@ class ModelCd extends ModelProduct {
         return $this->playLenght;
     }
 
-    static function get_data() {
+    public static function getCountOfRows()
+    {
+        $query ="SELECT COUNT(id) c FROM cds;";
+        $result = self::getMySQLDb()->query($query)->fetch();
+        if(isset($result['c'])) return $result['c'];
+        return false;
+    }
 
-        $result = self::getMySQLDb()->query("SELECT * FROM cds p WHERE p.type='cd' ORDER BY id");
+    static function get_data(Paginator $paginator = null) {
+
+        $data = [];
+        $query ="SELECT * FROM cds p WHERE p.type='cd' ORDER BY id";
+
+        if($paginator) {
+            $query .= " LIMIT {$paginator->offset},{$paginator->limit}";
+        }
+
+        $result = self::getMySQLDb()->query($query);
+
         $products = [];
         if ($result)
             foreach ($result as $row) {

@@ -18,11 +18,24 @@ class ModelBook extends ModelProduct{
 
     public function getNumberOfPages() {
         return $this->numPages;
-    }  
-
-    static function get_data() {
+    }
+    public static function getCountOfRows()
+    {
+        $query ="SELECT COUNT(id) c FROM books;";
+        $result = self::getMySQLDb()->query($query)->fetch();
+        if(isset($result['c'])) return $result['c'];
+        return false;
+    }
+    static function get_data(Paginator $paginator = null) {
         $data = [];
-        $result = self::getMySQLDb()->query("SELECT * FROM books b WHERE b.type='book' ORDER BY id");
+
+        $query ="SELECT * FROM books b WHERE b.type='book' ORDER BY id";
+
+        if($paginator) {
+            $query .= " LIMIT {$paginator->offset},{$paginator->limit}";
+        }
+
+        $result = self::getMySQLDb()->query($query);
 
         if ($result)
             foreach ($result as $row) {
