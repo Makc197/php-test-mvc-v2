@@ -49,7 +49,7 @@ class Paginator
 
         $html .= '<li><a href="?r=' . $action . '&offset=' . (($countOfPages) * 10) . '">&raquo;</a></li>';
         $html .= '</ul>';
-
+        /* from dev */
         return $html;   
     }
 }
