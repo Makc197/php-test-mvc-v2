@@ -1,7 +1,7 @@
 <div class="btn-group">
     <a id="create_product_button" class="btn btn-create-new btn-primary btn-md" role="button" href="?r=product/create">Добавить товар в базу</a>
 </div>
-
+<div class="table-block-400">
 <table class="table">
     <thead>
         <tr><th>Id</th>
@@ -37,5 +37,5 @@
         </tr>
     <?php endforeach; ?>
 </table>
-
+</div>
 <?php echo $paginator->html();?>

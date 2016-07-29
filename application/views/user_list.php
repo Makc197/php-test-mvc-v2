@@ -8,6 +8,7 @@
     <a id="create_user_button" class="btn btn-create-new btn-primary btn-md" role="button" href="?r=usermanagement/create">Добавить пользователя</a>
 </div>
 
+<div class="table-block-400">
 <table class="table">
     <thead>
         <tr><th>Id</th>
@@ -48,6 +49,7 @@
         </tr>
     <?php endforeach; ?>
 </table>
+</div>
 
 <?php echo $paginator->html();?>
 

@@ -36,4 +36,8 @@ table thead tr th{
 .formtable-div-block table {
    margin-bottom: 0;
 }
+.table-block-400
+{
+    height: 400px;
+}
 
