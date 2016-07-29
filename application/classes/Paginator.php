@@ -43,12 +43,13 @@ class Paginator
 
         //for($i=0; $i<=$countOfPages; $i++)
         for ($i = $startpos; $i <= $finpos; $i++) {
-            $html .= '<li><a href="?r=' . $action . '&offset=' . ($i * 10) . '">' . ($i + 1) . '</a></li>';
+			$classname= $i==$curpos ? 'class="current"' : "";
+            $html .= '<li '.$classname.'><a href="?r=' . $action . '&offset=' . ($i * 10) . '">' . ($i + 1) . '</a></li>';
         }
 
         $html .= '<li><a href="?r=' . $action . '&offset=' . (($countOfPages) * 10) . '">&raquo;</a></li>';
         $html .= '</ul>';
 
-        return $html;
+        return $html;   
     }
 }

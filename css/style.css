@@ -37,3 +37,7 @@ table thead tr th{
    margin-bottom: 0;
 }
 
+ul.pagination li.current a{
+    background-color: #f5f5f5;
+}
+
