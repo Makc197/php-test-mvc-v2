@@ -1,7 +1,7 @@
 <div class="btn-group">
     <a id="create_cd_button" class="btn btn-create-new btn-primary btn-md" role="button" href="?r=cd/create">Добавить CD в базу</a>
 </div>
-
+<div class="table-block-400">
 <table class="table">
     <thead>
         <tr><th>Id</th>
@@ -42,5 +42,5 @@
         </tr>
     <?php endforeach; ?>
 </table>
-
+</div>
 <?php echo $paginator->html();?>
