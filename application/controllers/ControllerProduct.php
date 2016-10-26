@@ -3,9 +3,14 @@
 class ControllerProduct extends Controller {
     
     function getAccess($action) {
+        //$access = isset($_SESSION['user']);
+        //return $access  && parent::getAccess($action);
         
-        $access = isset($_SESSION['user']);
-        return $access  && parent::getAccess($action);
+        //Никому не разрешим видеть - даже админу
+        //И выведем сообщение
+        $errors=[];
+        $errors[] = 'Раздел сайта находится на реконструкции';
+        return ['errors'=>$errors];
     }
     
     function action_index() {

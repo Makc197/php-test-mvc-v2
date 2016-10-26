@@ -32,7 +32,12 @@
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="/">Главная</a></li>
+                        <!-- <li class="active"><a href="/">Главная</a></li> -->
+                        <li>
+                        <a href="/">
+                            <span class="glyphicon glyphicon-home" style="font-size: 20px;"></span>
+                        </a>
+                        </li>
                         <li class="dropdown"><a href="#"class="dropdown-toggle" data-toggle="dropdown">Список товаров<b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                 <li><a href="/?r=book/index">Книги</a></li>

@@ -2,9 +2,18 @@
 
 class ControllerCd extends Controller {
     
-    function getAccess($action) {
+    function getAccess($action) { // ????Перенести в родительский класс
+        //~M 26.10.2016
+        $errors = [];
         $access = isset($_SESSION['user']);
-        return $access  && parent::getAccess($action);
+        // return $access  && parent::getAccess($action);
+        if ($access && parent::getAccess($action)){
+            return true;
+        }  else {
+            $errors[] = 'Необходимо залогиниться';
+            return ['errors'=>$errors];
+        }
+        
     }
     
     function action_index()

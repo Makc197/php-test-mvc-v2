@@ -1,4 +1,4 @@
-<h1> 
+<h1>
     <?php if($product->getID()) :?>
         <?php echo 'Update '.$product->getType() . " " . $product->getTitle() . " (ID: " . $product->getID() . ")"; ?>
     <?php else :?>
