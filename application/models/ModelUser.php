@@ -97,7 +97,7 @@ class ModelUser extends Model
     {
         $slt1 = "wci~23";
         $slt2 = "lfr@87";
-//var_dump(md5("$slt1$password$slt2")); die;
+        //var_dump(md5("$slt1$password$slt2")); die;
         $token = md5("$slt1$password$slt2");
         return $token;
     }

@@ -10,7 +10,7 @@ class ControllerCd extends Controller {
         if ($access && parent::getAccess($action)){
             return true;
         }  else {
-            $errors[] = 'Необходимо залогиниться';
+            $errors[] = 'Необходимо авторизоваться';
             return ['errors'=>$errors];
         }
         

@@ -5,9 +5,20 @@ class ControllerBook extends Controller {
     function getAccess($action) {
         // $access = isset($_SESSION['user']);
         // return $access && parent::getAccess($action);
-        
+        // 
         //По дефолту разрешим всем видеть
-        return true;
+        //return true;
+        //
+        //~M 26.10.2016
+        $errors = [];
+        $access = isset($_SESSION['user']);
+        // return $access  && parent::getAccess($action);
+        if ($access && parent::getAccess($action)) {
+            return true;
+        } else {
+            $errors[] = 'Необходимо авторизоваться';
+            return ['errors' => $errors];
+        }
     }
 
     function action_index() {

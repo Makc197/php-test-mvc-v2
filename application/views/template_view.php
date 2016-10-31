@@ -28,7 +28,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">Каталог товаров</a>
+                    <a class="navbar-brand" href="#">TEST Portal</a>
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
@@ -38,7 +38,8 @@
                             <span class="glyphicon glyphicon-home" style="font-size: 20px;"></span>
                         </a>
                         </li>
-                        <li class="dropdown"><a href="#"class="dropdown-toggle" data-toggle="dropdown">Список товаров<b class="caret"></b></a>
+                        
+                        <li class="dropdown"><a href="#"class="dropdown-toggle" data-toggle="dropdown">Каталог товаров<b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                 <li><a href="/?r=book/index">Книги</a></li>
                                 <li><a href="/?r=cd/index">Компакт диски</a></li>
@@ -47,6 +48,16 @@
                                 <li><a href="#">Отдельная ссылка</a></li>
                                 <li class="divider"></li>
                                 <li><a href="#">Еще одна отдельная ссылка</a></li>
+                            </ul>
+                        </li>
+                        
+                        <li class="dropdown"><a href="#"class="dropdown-toggle" data-toggle="dropdown">Тестовые задачки<b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/?r=examples/testtask1">Точки. Длина цепи.</a></li>
+                                <li><a href="#">Тестовая задача №2</a></li>
+                                <li><a href="#">Тестовая задача №3</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#">Отдельная ссылка</a></li>
                             </ul>
                         </li>
 
