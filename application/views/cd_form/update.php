@@ -9,13 +9,13 @@
 <div>    
     <div class="col-md-6">
 
-       <?php if(is_array($errors)): ?>
-        <ul>
-            <?php foreach ($errors as $err): ?>
-                <li><?php $err; ?></li>
-            <?php endforeach; ?>
-        </ul>
-        <?php endif;?>
+        <?php if (!empty($errors)): ?>
+            <ul>
+                <?php foreach ($errors as $err): ?>
+                    <li><?php $err; ?></li>
+                <?php endforeach; ?>
+            </ul>
+        <?php endif; ?>
 
         <form id="form_1" method="post" action="/?r=cd/update&id=<?= $product->getID(); ?>">
 

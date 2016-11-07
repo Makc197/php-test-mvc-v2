@@ -1,23 +1,23 @@
 <h1>
-    <?php if($product->getID()) :?>
-        <?php echo 'Update '.$product->getType() . " " . $product->getTitle() . " (ID: " . $product->getID() . ")"; ?>
-    <?php else :?>
-        <?php echo 'Create '.$product->getType(); ?>
-    <?php endif?>
+    <?php if ($product->getID()) : ?>
+        <?php echo 'Update ' . $product->getType() . " " . $product->getTitle() . " (ID: " . $product->getID() . ")"; ?>
+    <?php else : ?>
+        <?php echo 'Create ' . $product->getType(); ?>
+    <?php endif ?>
 </h1>
 
 <div>    
     <div class="col-md-6">
 
-       <?php if(is_array($errors)): ?>
-        <ul>
-            <?php foreach ($errors as $err): ?>
-                <li><?php $err; ?></li>
-            <?php endforeach; ?>
-        </ul>
-        <?php endif;?>
+        <?php if (!empty($errors)): ?>
+            <ul>
+                <?php foreach ($errors as $err): ?>
+                    <li><?php $err; ?></li>
+                <?php endforeach; ?>
+            </ul>
+        <?php endif; ?>
 
-        <form id="form_1" method="post" action="/?r=product/update&id=<?=$product->getID();?>">
+        <form id="form_1" method="post" action="/?r=product/update&id=<?= $product->getID(); ?>">
 
 
             <input type="hidden" name="id" value="<?= $product->getID(); ?>">

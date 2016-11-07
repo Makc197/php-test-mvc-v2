@@ -82,7 +82,6 @@ class ControllerUsermanagement extends Controller
 
     function action_delete($id)
     {
-        //???????
         ModelUser::delete_user_by_id($id);
         
         $count = ModelUser::getCountOfRows();

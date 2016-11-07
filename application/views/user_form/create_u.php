@@ -10,7 +10,7 @@
 <div>
     <div class = "col-md-6">
 
-        <?php if (!empty($errors)): ?>
+        <?php if (!empty($errors) & !empty($errors[0])): ?>
             <ul>
                 <?php foreach ($errors as $err): ?>
                     <li><?php echo $err; ?></li>
@@ -18,44 +18,43 @@
             </ul>
         <?php endif; ?>
 
-        <form id="form_1" method="post" action="/?r=usermanagement/create">
+        <form id="form_1" method="post" action="/?r=userregistration/create">
 
             <input type="hidden" name="id" value="">
-
+     
             <div class="form-group">
                 <label for="forename">Имя:</label>
                 <input required class="form-control" type="text" name="forename"
-                       value="<?= $user->getForeName(); ?>">
+                       value="<?= isset($_POST['forename']) ? $_POST['forename'] : $user->getForeName(); ?>">
             </div>
 
             <div class="form-group">
                 <label for="surname">Фамилия:</label>
                 <input required class="form-control" type="text" name="surname"
-                       value="<?= $user->getSurName(); ?>">
+                       value="<?= isset($_POST['surname']) ? $_POST['surname'] : $user->getSurName(); ?>">
             </div>
 
             <div class="form-group">
                 <label for="username">Login:</label>
                 <input required class="form-control" type="text" name="username"
-                       value="<?= $user->getUserName(); ?>" >
+                       value="<?= isset($_POST['username']) ? $_POST['username'] : $user->getUserName(); ?>" >
             </div>
 
             <div class="form-group">
                 <label for="password">Password:</label>
                 <input required class="form-control" type="text" name="password"
-                       value="<?= $user->getPassword(); ?>" >
+                       value="<?= isset($_POST['password']) ? $_POST['password'] : $user->getPassword(); ?>" >
             </div>
-
-            <div class="form-group">
-                <label for="userrole">Role:</label>
-                <?php
-                echo HtmlHelper::createSelect([
-                    'class' => 'form-control',
-                    'name' => 'role_id'
-                        ], $roles_data, $user->getRoleId());
-                ?>
+            
+            <div>
+                <img src="<?=$captha; ?>">              
             </div>
-
+            
+             <div class="form-group">
+                <label for="answer">Введите символы с изображения:</label>
+                <input required class="form-control" type="text" name="answer">
+            </div>
+               
             <button name="submit" type="submit" class="btn btn-primary">Create</button>
             <button 
                 name="clear"

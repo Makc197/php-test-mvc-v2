@@ -6,7 +6,7 @@
 <div>
     <div class="col-md-6">
 
-        <?php if (is_array($errors)): ?>
+        <?php if (!empty($errors)): ?>
             <ul>
                 <?php foreach ($errors as $err): ?>
                     <li><?php $err; ?></li>
@@ -35,10 +35,12 @@
 
             <div class="form-group">
                 <label for="userrole">Role:</label>
-                <?php echo HtmlHelper::createSelect([
-                    'class'=>'form-control',
-                    'name'=>'role_id'
-                ],$roles_data,$user->getRoleId());?>
+                <?php
+                echo HtmlHelper::createSelect([
+                    'class' => 'form-control',
+                    'name' => 'role_id'
+                        ], $roles_data, $user->getRoleId());
+                ?>
             </div>
 
             <div class="form-group">
