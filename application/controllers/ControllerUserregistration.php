@@ -21,14 +21,15 @@ Class ControllerUserregistration extends Controller {
             } else {
                 if ($_SESSION["randStr"] == $_POST["answer"]) {
                     $_POST["role_id"] = "1";
-                    //var_dump($_POST); die;
                     $user = ModelUser::create_user($_POST); //создаем объект User
-                    $errors[] = $user->validate(); //Проверяем введенные данные
 
-                    if (!$errors && $user->save()) {
+                    $errors[] = $user->validate(); //Проверяем введенные данные
+                    //var_dump($errors);
+                    //die;
+
+                    if (empty($errors[0]) && $user->save()) {
                         header('Location: index.php?r=authentication/login');
                     }
-                    
                 } else {
                     $errors[] = "Неверно указан код с изображения";
                 }

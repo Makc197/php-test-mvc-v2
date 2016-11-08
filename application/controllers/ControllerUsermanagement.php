@@ -83,16 +83,5 @@ class ControllerUsermanagement extends Controller
     function action_delete($id)
     {
         ModelUser::delete_user_by_id($id);
-        
-        $count = ModelUser::getCountOfRows();
-        $paginator = new Paginator($count, 10);
-        $paginator->offset = isset($_GET['offset']) ? $_GET['offset'] : 0;
-        
-        $data = ModelUser::get_data($paginator);
-        //var_dump($data);die();
-        $this->view->generate('user_list.php',
-            'template_view.php',
-            ['data'=>$data, 'paginator'=>$paginator]);
-              
     }
 }

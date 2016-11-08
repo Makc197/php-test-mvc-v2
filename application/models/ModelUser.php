@@ -10,7 +10,7 @@ class ModelUser extends Model {
     private $token; //Password Token
     private $role; //role = []
 
-//конструктор класса User
+    //конструктор класса User
 
     public function __construct($forename = null, $surname = null, $username = null, $password = null, $token = null, $role = null) {
         $this->forename = $forename;
@@ -89,7 +89,6 @@ class ModelUser extends Model {
     public static function login($login, $password) {
 //1 - делаем токен для $password
         $token = self::setToken($password);
-//var_dump($token);die;
 //2 - проверяем  пару $login $token в таблице users и если ОК 
 // прописываем данные пользователя в массив $_SESSION
         $user = self::get_user_by_login_token($login, $token);
@@ -107,7 +106,6 @@ class ModelUser extends Model {
     }
 
     static function get_user_by_login_token($login, $token) {
-//var_dump($id);die;
 
         $row = self::getMySQLDb()->query("SELECT u.*, "
                         . "ur.role_code, ur.role_name "
@@ -199,45 +197,97 @@ class ModelUser extends Model {
      * @return boolean
      */
     public function save() {
-// update or insert
+        // update or insert
         $id = $this->getId();
         if ($id) {
-//если id есть - update
-            $sql = "UPDATE `users` SET "
-                    . " `forename`='" . $this->getForename() . "',"
-                    . " `surname`='" . $this->getSurname() . "',"
-                    . " `username`='" . $this->getUsername() . "',"
-                    . " `password`='" . $this->getPassword() . "',"
-                    . " `token`='" . $this->getToken() . "',"
-                    . " `role_id`='" . $this->getRoleId() . "'"
-                    . " WHERE `id`=" . $id;
 
-            self::getMySQLDb()->query($sql);
+            /*
+              //Подготовленные запросы в PDO
+              //INSERT
+              $stmt = $dbh->prepare("INSERT INTO REGISTRY (name, value) VALUES (:name, :value)");
+              $stmt->bindParam(':name', $name);
+              $stmt->bindParam(':value', $value);
+
+              //Вставим одну строку
+              $name = 'one';
+              $value = 1;
+              $stmt->execute();
+
+              //Используем хелпер pdoSet - см self::pdoSet
+              //Код для вставки:
+              $allowed = array("name","surname","email"); // allowed fields
+              $sql = "INSERT INTO users SET ".pdoSet($allowed,$values);
+              $stm = $dbh->prepare($sql);
+              $stm->execute($values);
+
+              //А для апдейта - такой:
+              $allowed = array("name","surname","email","password"); // allowed fields
+              $_POST['password'] = MD5($_POST['login'].$_POST['password']);
+              $sql = "UPDATE users SET ".pdoSet($allowed,$values)." WHERE id = :id";
+              $stm = $dbh->prepare($sql);
+              $values["id"] = $_POST['id'];
+              $stm->execute($values);
+             */
+
+//Если id есть - UPDATE
+            /* Было
+              $sql = "UPDATE `users` SET "
+              . " `forename`='" . $this->getForename() . "',"
+              . " `surname`='" . $this->getSurname() . "',"
+              . " `username`='" . $this->getUsername() . "',"
+              . " `password`='" . $this->getPassword() . "',"
+              . " `token`='" . $this->getToken() . "',"
+              . " `role_id`='" . $this->getRoleId() . "'"
+              . " WHERE `id`=" . $id;
+
+              self::getMySQLDb()->query($sql);
+             */
+
+            //Стало
+            $allowed = array("forename", "surname", "username", "password", "token", "role_id");
+            $_POST['token'] = $this->getToken();
+            $sql = "UPDATE `users` SET " . self::pdoSet($allowed, $values) . " WHERE id = :id";
+            $stm = self::getMySQLDb()->prepare($sql);
+            $values['id'] = $_POST['id'];
+            $stm->execute($values);
+            //echo $sql . '</br>';
+            //print_r($values);
+            //die;
         } else {
-//если id нет - insert
-            $sql = "INSERT INTO `users` "
-                    . "(`forename`, `surname`, `username`, `password`, `token` , `role_id` )"
-                    . "VALUES ("
-                    . "'" . $this->getForename() . "', "
-                    . "'" . $this->getSurname() . "', "
-                    . "'" . $this->getUsername() . "', "
-                    . "'" . $this->getPassword() . "', "
-                    . "'" . $this->getToken() . "', "
-                    . "'" . $this->getRoleId() . "')";
+//Если id нет - INSERT
+            /* Было
+              $sql = "INSERT INTO `users` "
+              . "(`forename`, `surname`, `username`, `password`, `token` , `role_id` )"
+              . "VALUES ("
+              . "'" . $this->getForename() . "', "
+              . "'" . $this->getSurname() . "', "
+              . "'" . $this->getUsername() . "', "
+              . "'" . $this->getPassword() . "', "
+              . "'" . $this->getToken() . "', "
+              . "'" . $this->getRoleId() . "')";
+              self::getMySQLDb()->query($sql);
+             */
 
-            self::getMySQLDb()->query($sql);
+            //Стало
+            $allowed = array("forename", "surname", "username", "password", "token", "role_id"); //allowed fields
+            $_POST['token'] = $this->getToken();
+            $sql = "INSERT INTO `users` SET " . self::pdoSet($allowed, $values);
+            $stm = self::getMySQLDb()->prepare($sql);
+            $stm->execute($values);
+            //echo $sql . '</br>';
+            //print_r($values);
+            //die;
         }
 
         return true;
     }
 
     static function delete_user_by_id($id) {
-//var_dump('id='.$id);die;
-//self::getMySQLDb()->query("DELETE FROM `products` WHERE (`id`= {$id}");
+
         $sql = "DELETE FROM `users` WHERE (`id`='" . $id . "')";
         self::getMySQLDb()->query($sql);
 
-        return NULL;
+        header('Location: index.php?r=usermanagement');
     }
 
     public function validate() {

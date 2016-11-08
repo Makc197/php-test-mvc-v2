@@ -12,11 +12,11 @@ class Captcha {
         $randStr = substr(md5(uniqid()), 0, $nChars); //Случайный текст
         $_SESSION["randStr"] = $randStr; //Кладем текст в массив сессии в элемент randStr
 
-        $x = 20;
-        $y = 30;
+        $x = 40;
+        $y = 45;
         $deltaX = 40; //параметры отрисовки
         for ($i = 0; $i < $nChars; $i++) {
-            $size = rand(18, 30);
+            $size = rand(27, 38);
             $angle = -30 + rand(0, 60); //Задаем случайный угол наклона символов
             imageTTFText($img, $size, $angle, $x, $y, $color, SITE_PATH . '\fonts\bellb.ttf', $randStr[$i]);
             $x += $deltaX;
@@ -24,14 +24,16 @@ class Captcha {
 
         /* Отдаем изображение */
         //header("Content-type: image/jpg");
- 
+            
+        //Прогоняем ресурс (получившееся изображение jpg) через кеш
         ob_start();
 
         imageJpeg($img, null, 50);
         $image_data = ob_get_contents();
 
         ob_end_clean();
-
+        
+        //Оборачиваем полученные данные base64
         $image_data_base64 = base64_encode($image_data);
         $dataUri = "data:image/jpeg;base64," . $image_data_base64;
         
