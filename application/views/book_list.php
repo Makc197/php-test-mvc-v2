@@ -34,7 +34,7 @@
                 <a href="?r=book/update&id=<?php echo $id; ?>">
                     <span class="glyphicon glyphicon-pencil"></span>
                 </a>
-                <a href="?r=book/delete&id=<?php echo $id; ?>">
+                <a class="delete-book-link" href="?r=book/delete&id=<?php echo $id; ?>">
                     <span class="glyphicon glyphicon-trash"></span>
                 </a>
             </td>
@@ -44,5 +44,22 @@
 </div>
 <?php echo $paginator->html();?>
 
+<script>
+    $(function(){
+        $(".delete-book-link").click(function(event){
+            event.preventDefault();
+            var url = $(this).attr('href');
+
+            $.ajax({
+                type: "POST",
+                url: url,
+                success: function(data){
+                    console.log(data);
+                },
+            });
+
+        });
+    });
+</script>
 
 

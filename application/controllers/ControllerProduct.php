@@ -3,14 +3,23 @@
 class ControllerProduct extends Controller {
     
     function getAccess($action) {
-        //$access = isset($_SESSION['user']);
-        //return $access  && parent::getAccess($action);
-        
+
         //Никому не разрешим видеть - даже админу
         //И выведем сообщение
-        $errors=[];
-        $errors[] = 'Раздел сайта находится на реконструкции';
-        return ['errors'=>$errors];
+        //$errors=[];
+        //$errors[] = 'Раздел сайта находится на реконструкции';
+        //return ['errors'=>$errors];
+
+        $errors = [];
+        $access = isset($_SESSION['user']);
+
+        if ($access && parent::getAccess($action)) {
+            return true;
+        } else {
+            $errors[] = 'Необходимо авторизоваться';
+            return ['errors' => $errors];
+        }
+
     }
     
     function action_index() {
@@ -22,6 +31,7 @@ class ControllerProduct extends Controller {
         $this->view->generate('product_list.php', 
             'template_view.php', 
             ['data'=>$data, 'paginator'=>$paginator]);
+                
     }
 
     function action_delete($id) {

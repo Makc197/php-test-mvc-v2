@@ -20,6 +20,7 @@ class Paginator
 
     public function html()
     {
+        //echo "$this->count  $this->limit)"; die();
         $countOfPages = floor($this->count / $this->limit);
         $curpos = (($this->offset) / 10); //Текущая позиция
         if ($countOfPages>5) {
@@ -30,8 +31,6 @@ class Paginator
             $startpos = 0 ;
             $finpos = $countOfPages;
         }
-
-
 
         $action = $_GET['r'];
 

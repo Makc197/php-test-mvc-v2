@@ -1,6 +1,7 @@
 <?php
 
-class ModelProduct extends Model {
+class ModelProduct extends Model
+{
 
     private $id = 0;
     private $type;
@@ -9,41 +10,51 @@ class ModelProduct extends Model {
     protected $price;
 
     //конструктор родительского класса ShopProduct
-    public function __construct($type = 'product', $title = null, $description = null, $price = null) {
+    public function __construct($type = 'product', $title = null, $description = null, $price = null)
+    {
         $this->type = $type;
         $this->title = $title;   //присвоили атрибутам класса значения взятые из конструктора класса
         $this->description = $description;
         $this->price = $price;
     }
-    public function __call($method, $args) {
+
+    public function __call($method, $args)
+    {
         die($method);
     }
 
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
-    public function setId($id) {
+    public function setId($id)
+    {
         $this->id = $id;
     }
 
-    public function getType() {
+    public function getType()
+    {
         return $this->type;
     }
 
-    public function getTitle() {
+    public function getTitle()
+    {
         return $this->title;
     }
 
-    public function getDescription() {
+    public function getDescription()
+    {
         return $this->description;
     }
 
-    public function getPrice() {
+    public function getPrice()
+    {
         return $this->price;
     }
 
-    public function validate() {
+    public function validate()
+    {
         $errors = [];
 
         if (!preg_match('/^[0-9]*[.]?[0-9]+$/', $this->price))
@@ -51,22 +62,25 @@ class ModelProduct extends Model {
         //проверка
         return $errors;
     }
+
     public static function getCountOfRows()
     {
-        $query ="SELECT COUNT(id) c FROM products;";
+        $query = "SELECT COUNT(id) c FROM products;";
         $result = self::getMySQLDb()->query($query)->fetch();
-        if(isset($result['c'])) return $result['c'];
+        if (isset($result['c'])) return $result['c'];
         return false;
     }
-    static function get_data(Paginator $paginator = null) {
+
+    static function get_data(Paginator $paginator = null)
+    {
         $data = [];
-        $query ="SELECT * FROM products p 
+        $query = "SELECT * FROM products p 
               WHERE p.type='product' 
               ORDER BY id";
-        if($paginator) {
+        if ($paginator) {
             $query .= " LIMIT {$paginator->offset},{$paginator->limit}";
         }
-        
+
         $result = self::getMySQLDb()->query($query);
         if ($result)
             foreach ($result as $row) {
@@ -78,7 +92,8 @@ class ModelProduct extends Model {
         return $data;
     }
 
-    static function get_by_id($id) {
+    static function get_by_id($id)
+    {
         //var_dump($id);die;
         $row = self::getMySQLDb()->query("SELECT * FROM products WHERE id = {$id} LIMIT 1")->fetch();
 
@@ -91,28 +106,39 @@ class ModelProduct extends Model {
         return NULL;
     }
 
-    public static function loadData($row) {
+    public static function loadData($row)
+    {
         //Создаем объект  BookProduct на основании данных массива $_POST
         $product = new self('product', $row['title'], $row['description'], $row['price']);
         $product->setID($row['id']);
         return $product;
     }
 
-    public function save() {
+    public function save()
+    {
         // update or insert
-       
         $id = $this->getId();
         if ($id) {
             //если id есть - update
-            $sql = "UPDATE `products` SET "
+            /* Было
+             $sql = "UPDATE `products` SET "
                     . " `title`='" . $this->getTitle() . "',"
                     . " `description`='" . $this->getDescription() . "',"
                     . " `price`='" . $this->getPrice() . "'"
                     . " WHERE `id`=" . $id;
             self::getMySQLDb()->query($sql);
+             */
+            //Стало
+            $allowed = array("title", "description", "price");
+            $sql = "UPDATE `products` SET " . self::pdoSet($allowed, $values) . " WHERE id = :id";
+            $stm = self::getMySQLDb()->prepare($sql);
+            $values['id'] = $_POST['id'];
+            $stm->execute($values);
+
         } else {
             //если id нет - insert
-            $sql = "INSERT INTO `products` "
+            /*Было
+             $sql = "INSERT INTO `products` "
                     . "(`type`, `title`, "
                     . "`description`, `price`) "
                     . "VALUES ('product', "
@@ -120,23 +146,32 @@ class ModelProduct extends Model {
                     . "'" . $this->getDescription() . "', "
                     . "'" . $this->getPrice() . "')";
             self::getMySQLDb()->query($sql);
+            */
+            //Стало
+            $allowed = array("type", "title", "description", "price"); //allowed fields
+            $_POST['type'] = "product";
+            $sql = "INSERT INTO `products` SET " . self::pdoSet($allowed, $values);
+            $stm = self::getMySQLDb()->prepare($sql);
+            $stm->execute($values);
+
         }
         return true;
     }
-    
-    public function delete() {
+
+    public function delete()
+    {
         self::delete_by_id($this->getId());
     }
-    
+
     public static function getTableName()
     {
         return 'products';
     }
 
-    static function delete_by_id($id) {
-        //var_dump('id='.$id);die;
-        //self::getMySQLDb()->query("DELETE FROM `products` WHERE (`id`= {$id}");
-        $sql = "DELETE FROM `".static::getTableName()."` WHERE (`id`='" . $id . "')";
+    static function delete_by_id($id)
+    {
+
+        $sql = "DELETE FROM `" . static::getTableName() . "` WHERE (`id`='" . $id . "')";
         self::getMySQLDb()->query($sql);
 
         return NULL;

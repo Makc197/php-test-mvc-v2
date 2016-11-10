@@ -112,6 +112,7 @@ class ModelBook extends ModelProduct
              */
             //Стало
             $allowed = array("type", "title", "description", "price", "author", "numpages"); //allowed fields
+            $_POST['type'] = "book";
             $sql = "INSERT INTO `books` SET " . self::pdoSet($allowed, $values);
             $stm = self::getMySQLDb()->prepare($sql);
             $stm->execute($values);

@@ -75,16 +75,26 @@ class ModelCd extends ModelProduct {
 
         if ($id) {
             //если id есть - update
-            $sql = "UPDATE `cds` SET "
+            /* Было
+             $sql = "UPDATE `cds` SET "
                     . " `title`='" . $this->getTitle() . "',"
                     . " `description`='" . $this->getDescription() . "',"
                     . " `price`='" . $this->getPrice() . "',"
                     . " `author`='" . $this->getAuthor() . "',"
                     . " `playlenght`='" . $this->getPlayLenght() . "'"
                     . " WHERE `id`=" . $id;
+             */
+            //Стало
+            $allowed = array("title", "description", "price", "author", "playlenght");
+            $sql = "UPDATE `cds` SET " . self::pdoSet($allowed, $values) . " WHERE id = :id";
+            $stm = self::getMySQLDb()->prepare($sql);
+            $values['id'] = $_POST['id'];
+            $stm->execute($values);
+
         } else {
             //если id нет - insert
-            $sql = "INSERT INTO `cds` "
+            /* Было
+             $sql = "INSERT INTO `cds` "
                     . "(`type`, `title`, "
                     . "`description`, `price`, "
                     . "`author`, `playlenght`) "
@@ -94,7 +104,16 @@ class ModelCd extends ModelProduct {
                     . "'" . $this->getPrice() . "', "
                     . "'" . $this->getAuthor() . "', "
                     . "'" . $this->getPlayLenght() . "')";
+             */
+            //Стало
+            $allowed = array("type", "title", "description", "price", "author", "playlenght"); //allowed fields
+            $_POST['type'] = "cd";
+            $sql = "INSERT INTO `cds` SET " . self::pdoSet($allowed, $values);
+            $stm = self::getMySQLDb()->prepare($sql);
+            $stm->execute($values);
+
         }
+
         //die($sql);
         self::getMySQLDb()->query($sql);
         return true;

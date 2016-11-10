@@ -1,8 +1,10 @@
 <?php
 
-class ControllerBook extends Controller {
+class ControllerBook extends Controller
+{
 
-    function getAccess($action) {
+    function getAccess($action)
+    {
         // $access = isset($_SESSION['user']);
         // return $access && parent::getAccess($action);
         // 
@@ -21,7 +23,8 @@ class ControllerBook extends Controller {
         }
     }
 
-    function action_index() {
+    function action_index()
+    {
         $count = ModelBook::getCountOfRows();
         $paginator = new Paginator($count, 10);
         $paginator->offset = isset($_GET['offset']) ? $_GET['offset'] : 0;
@@ -30,20 +33,25 @@ class ControllerBook extends Controller {
         $this->view->generate('book_list.php', 'template_view.php', ['data' => $data, 'paginator' => $paginator]);
     }
 
-    function action_delete($id) {
-        //var_dump('id='.$id);die;
-        ModelBook::delete_by_id($id);
-        $data = ModelBook::get_data();
-        $this->view->generate('book_list.php', 'template_view.php', $data);
+    function action_delete($id)
+    {
+
+        //ModelBook::delete_by_id($id);
+        //header('Location: index.php/?r=book/index');
+
+        die('ok');
+
     }
 
-    function action_create() {
+    function action_create()
+    {
         $errors = [];
         $book = new ModelBook();
         $this->view->generate('book_form' . DS . 'update.php', 'template_view.php', ['product' => $book, 'errors' => $errors]);
     }
 
-    function action_update($id) {
+    function action_update($id)
+    {
         // пришла форма с обновленными данными
         $errors = [];
         if (isset($_POST['submit'])) {
@@ -59,7 +67,8 @@ class ControllerBook extends Controller {
         $this->view->generate('book_form' . DS . 'update.php', 'template_view.php', ['product' => $book, 'errors' => $errors]);
     }
 
-    function action_view($id) {
+    function action_view($id)
+    {
         $data = ModelBook::get_by_id($id);
         $errors = [];
         $this->view->generate('book_form' . DS . 'view.php', 'template_view.php', ['product' => $data, 'errors' => $errors]);
