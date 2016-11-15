@@ -17,7 +17,7 @@
     </thead>
     <?php foreach ($data as $shopProduct) : ?>
         <?php $id = $shopProduct->getId(); ?>
-        <tr>
+        <tr class="book" data-id="<?php echo $id; ?>">
             <td><?php echo $id; ?></td>
             <td><?php echo $shopProduct->getType(); ?></td>
             <td><a href='?r=book/view&id=<?php echo $id; ?>'>
@@ -47,15 +47,30 @@
 <script>
     $(function(){
         $(".delete-book-link").click(function(event){
+
+            if(!confirm("Вы уверены, что хотите удалить?"))
+                return false;
             event.preventDefault();
             var url = $(this).attr('href');
+            //var book_id = $(this).parents('tr').attr('data-id');
+            //console.log(book_id);
+
+            var that_tr = $(this).parents('tr');
 
             $.ajax({
                 type: "POST",
                 url: url,
                 success: function(data){
                     console.log(data);
+                    //$(".book[data-id]") - выбрать все
+                    //$(".book[data-id=22]") - выбрать по классу book где атрибут data-id=22
+                    //$(".book[data-id=" + book_id + "]").remove();
+                    that_tr.remove();
                 },
+                error: function( jqXHR, textStatus, errorThrown ) {
+                    //console.log(jqXHR, textStatus, errorThrown);
+                    alert('Ошибка сервера');
+                }
             });
 
         });

@@ -22,7 +22,8 @@ class Paginator
     {
         //echo "$this->count  $this->limit)"; die();
         $countOfPages = floor($this->count / $this->limit);
-        $curpos = (($this->offset) / 10); //Текущая позиция
+        
+        $curpos = (($this->offset) / $this->limit); //Текущая позиция
         if ($countOfPages>5) {
             $startpos = ($curpos < 3) ? 0 : ($curpos - 2);
             $finpos = ($curpos + 3) > $countOfPages ? $countOfPages : ($curpos + 2);
@@ -43,10 +44,10 @@ class Paginator
         //for($i=0; $i<=$countOfPages; $i++)
         for ($i = $startpos; $i <= $finpos; $i++) {
 			$classname= $i==$curpos ? 'class="current"' : "";
-            $html .= '<li '.$classname.'><a href="?r=' . $action . '&offset=' . ($i * 10) . '">' . ($i + 1) . '</a></li>';
+            $html .= '<li '.$classname.'><a href="?r=' . $action . '&offset=' . ($i * $this->limit) . '">' . ($i + 1) . '</a></li>';
         }
 
-        $html .= '<li><a href="?r=' . $action . '&offset=' . (($countOfPages) * 10) . '">&raquo;</a></li>';
+        $html .= '<li><a href="?r=' . $action . '&offset=' . (($countOfPages) * $this->limit) . '">&raquo;</a></li>';
 
         /* from dev2*/
         return $html;

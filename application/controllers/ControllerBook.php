@@ -35,12 +35,16 @@ class ControllerBook extends Controller
 
     function action_delete($id)
     {
+        //http_response_code(500);
+        //die;
 
-        //ModelBook::delete_by_id($id);
-        //header('Location: index.php/?r=book/index');
+        $c = ModelBook::delete_by_id($id);
 
-        die('ok');
+        if($this->isAjaxRequest()) {
+            die(json_encode($c));
+        }
 
+        header('Location: index.php/?r=book/index');
     }
 
     function action_create()

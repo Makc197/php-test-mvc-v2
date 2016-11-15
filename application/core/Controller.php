@@ -17,4 +17,10 @@ class Controller {
 	function action_index()
 	{
 	}
+
+	public function isAjaxRequest()
+	{
+		return (!empty($_SERVER['HTTP_X_REQUESTED_WITH'])
+			&& strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest');
+	}
 }

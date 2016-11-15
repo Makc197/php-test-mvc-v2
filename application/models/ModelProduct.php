@@ -170,11 +170,11 @@ class ModelProduct extends Model
 
     static function delete_by_id($id)
     {
-
         $sql = "DELETE FROM `" . static::getTableName() . "` WHERE (`id`='" . $id . "')";
-        self::getMySQLDb()->query($sql);
+        //self::getMySQLDb()->query($sql);
+        $c = self::getMySQLDb()->exec($sql);
 
-        return NULL;
+        return $c;
     }
 
 }

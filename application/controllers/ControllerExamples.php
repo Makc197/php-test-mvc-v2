@@ -7,7 +7,7 @@ class ControllerExamples extends Controller {
         unset($_SESSION['xy']);
         header('Location: /?r=examples/testtask1');
     }
-    
+
     function action_testtask1() {
         $errors = [];
         $points = [];
@@ -17,17 +17,23 @@ class ControllerExamples extends Controller {
         //$p1 = new Point(2, 8);
         //$p2 = new Point(5, 6);
         //$p3 = new Point(4, 4);
-        //$p4 = new Point(10, 5);
-        //$p5 = new Point(8, 2);
-        //
         //print_r($_POST);die;
 
-        if (!empty($_POST['Math'])) {
-            $post = $_POST['Math'];
-            
-            $x = $post['x'];
-            $y = $post['y'];
-            
+        if (!empty($_SESSION['xy'])) {
+            foreach ($_SESSION['xy'] as $value) {
+                $p = new Point($value['x'], $value['y']);
+            }
+
+            //Возвращаем массив точек
+            $points = Point::allPoints();
+        }
+
+        if (!empty($_POST['Math_x']) && !empty($_POST['Math_y'])) {
+            $post = $_POST;
+
+            $x = $post['Math_x'];
+            $y = $post['Math_y'];
+
             if (trim($x) == '') {
                 $errors[] = 'Укажите координату X';
             }
@@ -35,17 +41,10 @@ class ControllerExamples extends Controller {
             if (trim($y) == '') {
                 $errors[] = 'Укажите координату Y';
             }
-            
+
             $_SESSION['xy'][] = ['x' => $x, 'y' => $y];
 
             if (is_numeric($x) and is_numeric($y)) {
-                
-                foreach ($_SESSION['xy'] as $value) {
-                    $p = new Point($value['x'], $value['y']);
-                }
-                
-                //Возвращаем массив точек
-                $points = Point::allPoints();
 
                 //Количество точек в массиве
                 $n = Point::count();
@@ -79,8 +78,11 @@ class ControllerExamples extends Controller {
                     $str = $str . "</br> Ответ: $L2";
                 }
             }
-        }
 
+            if ($this->isAjaxRequest()) {
+                die(json_encode($_SESSION['xy']));
+            }
+        }
         //Рендерим вьюху
         $this->view->generate('example1_view.php', 'template_view.php', ['data' => $points, 'str' => $str, 'errors' => $errors]);
     }
