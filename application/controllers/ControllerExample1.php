@@ -1,14 +1,14 @@
 <?php
 
-class ControllerExamples extends Controller {
+class ControllerExample1 extends Controller {
 
     //Задача №1. Определить длину цепи между точками по координатам
     function action_reset() {
         unset($_SESSION['xy']);
-        header('Location: /?r=examples/testtask1');
+        header('Location: /?r=example1/calculate');
     }
 
-    function action_testtask1() {
+    function action_calculate() {
         $errors = [];
         $points = [];
         $str = '';
@@ -43,7 +43,10 @@ class ControllerExamples extends Controller {
             }
 
             $_SESSION['xy'][] = ['x' => $x, 'y' => $y];
-
+			
+            //Обновляем массив точек
+            //$points = Point::allPoints(); 
+			
             if (is_numeric($x) and is_numeric($y)) {
 
                 //Количество точек в массиве

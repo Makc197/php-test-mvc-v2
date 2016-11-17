@@ -1,4 +1,6 @@
 <?php
+session_start(); //старт сессии
+
 $autoloader=function ($classname) {
     $classdir1 = DS . 'application' . DS . 'core';
     $classdir2 = DS . 'application' . DS . 'classes';
@@ -22,8 +24,9 @@ $autoloader=function ($classname) {
 
 // Загрузка классов из application/core и application/classes
 spl_autoload_register($autoloader);
+
 //$db = new PDO('mysql:host=127.0.0.1;dbname=test;charset=utf8', 'root', '');
 $dsn = 'mysql:host=localhost;dbname='.DB_NAME.';charset=utf8';
 DataBase::init(array('dsn'=>$dsn,'user'=>DB_USER,'password'=>DB_PASS));
-session_start();
+
 Route::start(); // запускаем маршрутизатор

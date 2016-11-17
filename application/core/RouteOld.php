@@ -11,8 +11,6 @@ class Route {
         $params = [];
 
         $start = mb_strpos($_SERVER['REQUEST_URI'], '?');
-        var_dump($_SERVER['REQUEST_URI']);die();
-        
         if ($start) {
             $paramsString = mb_substr($_SERVER['REQUEST_URI'], $start + 1);
             parse_str($paramsString, $params);
@@ -30,6 +28,7 @@ class Route {
             }
             unset($params['r']);
         }
+
 
         // добавляем префиксы
         $model_name = 'Model' . ucfirst($controller_name);

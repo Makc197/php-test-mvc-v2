@@ -58,8 +58,8 @@
                         
                         <li class="dropdown"><a href="#"class="dropdown-toggle" data-toggle="dropdown">Тестовые задачки<b class="caret"></b></a>
                             <ul class="dropdown-menu">
-                                <li><a href="/?r=examples/testtask1">Точки. Длина цепи.</a></li>
-                                <li><a href="#">Тестовая задача №2</a></li>
+                                <li><a href="/?r=example1/calculate">Точки. Длина цепи.</a></li>
+                                <li><a href="/?r=example2/drawchar">Рисуем и сохраняем BMP</a></li>
                                 <li><a href="#">Тестовая задача №3</a></li>
                                 <li class="divider"></li>
                                 <li><a href="#">Отдельная ссылка</a></li>

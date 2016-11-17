@@ -1,6 +1,6 @@
-<h1>Задача №1</h1>
+<h1>Задача №1. Расчет длины цепи по координатам точек </h1>
 
-<form class="form-inline" id="example1" method="post" action="/?r=examples/testtask1">
+<form class="form-inline" id="example1" method="post" action="/?r=example1/calculate">
     <div class="form-group">
         <label for="x">X:</label>
         <input required class="form-control" type="text" name="Math_x"
@@ -12,7 +12,7 @@
                value="">
     </div>
     <button type="submit" name="submit" class="btn btn-default">Submit</button>
-    <a href='/?r=examples/reset' class="btn btn-default">Reset</a>
+    <a href='/?r=example1/reset' class="btn btn-default">Reset</a>
 </form>
 <br>
 <canvas id="lines" width="400" height="400"></canvas>
@@ -58,89 +58,7 @@
     }
 </style>
 
-<script>   
-    jQuery(function($){
-        function getMousePos(canvas, evt) {
-            var rect = canvas.getBoundingClientRect();
-            var _x = evt.clientX - rect.left,
-                _y = evt.clientX - rect.left;
-            if(_x > rect.width || _y > rect.height) return false;
-            return {
-              x: evt.clientX - rect.left,
-              y: evt.clientY - rect.top
-            };
-        }
-        
-        function drawLines(canvas, allCoords){
-            if (!canvas.getContext && allCoords.length==0) return false;
-            //console.log(allCoords);
-            var ctx = canvas.getContext('2d');
-            // begin paint
-            ctx.beginPath();
-            // from first point
-            var firstPoint = allCoords[0];
-            ctx.moveTo(firstPoint.x, firstPoint.y);
-            $(allCoords).each(function(){               
-                ctx.lineTo(this.x, this.y);
-            });
-            //ctx.fill();
-            ctx.lineWidth = 3;
-            ctx.strokeStyle = '#ff0000';
-            ctx.stroke();        
-        }
-        
-        function sendCoorinate(cord, callback){
-            console.log(cord);
-            var url = $("#example1").attr('action');
-            $.post(url,{'Math_x':cord.x, 'Math_y':cord.y},function(){
-                callback();
-            });
-        }
-        
-        var canvas = document.getElementById('lines');
-        var allCoords = [];
-        var scale = 1;
-        $(".point").each(function () {            
-            var $this = $(this),
-            cords = {
-                x : +$this.attr('data-x') * scale,
-                y : +$this.attr('data-y') * scale
-            };
-            allCoords.push(cords);
-        });
-        
-        if (canvas.getContext && allCoords.length > 0) {
-            drawLines(canvas, allCoords);
-        }
-        
-        document.onclick = function(e){
-            var coordsInCanvas = getMousePos(canvas, e);
-            if(!coordsInCanvas) return;
-            
-            $('#example1').find('[name=Math_x]').val(coordsInCanvas.x);
-            $('#example1').find('[name=Math_y]').val(coordsInCanvas.y);
-            allCoords.push(coordsInCanvas);
-            sendCoorinate(coordsInCanvas, function(){
-                drawLines(canvas, allCoords);
-            });
-        };
-        
-    });
-
-           
-          
-
-      /*  if (canvas.getContext) {
-            var ctx = canvas.getContext('2d');
-
-            ctx.beginPath();
-            ctx.moveTo(75, 50);
-            ctx.lineTo(100, 75);
-            ctx.lineTo(100, 25);
-
-            ctx.fill();
-        }*/
-    
-</script>
-
-
+<!--Асинхронным запросом получаем массив точек из json, который сформировали в ControllerExample1 в function action_calculate()-->
+<script defer> var ALL_POINTS = <?=json_encode($data)?> </script> 
+<!--На основании массива точек рисуем линию в function drawLines() в js/Example1.js -->
+<script src="../../js/Example1.js" defer></script>
