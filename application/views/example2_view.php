@@ -1,6 +1,6 @@
 <h1>Задача №2. Рисуем и сохраняем в BMP</h1>
 
-<form class="form-inline" id="example2" method="post" action="/?r=example2/drawchar">
+<form class="form-inline" id="example2" method="post" action="/example2/drawchar">
 <div class="form-inline">
     <div class="form-group">
         <label for="x">X: evt.clientX - rect.left:</label>
@@ -52,7 +52,7 @@
 <br>
 <div>
     <button type="submit" name="submit" class="btn btn-default">Submit</button>
-    <a href='/?r=example2/reset' class="btn btn-default">Reset</a>
+    <a href='/example2/reset' class="btn btn-default">Reset</a>
 </div>
 </form>
 <br>

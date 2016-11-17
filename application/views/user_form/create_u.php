@@ -18,7 +18,7 @@
             </ul>
         <?php endif; ?>
 
-        <form id="form_1" method="post" action="/?r=userregistration/create">
+        <form id="form_1" method="post" action="/userregistration/create">
 
             <input type="hidden" name="id" value="">
      

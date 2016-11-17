@@ -41,8 +41,6 @@ class ModelBook extends ModelProduct
                 $data[] = $product; //Массив объектов
             }
 
-        //print_r($data);
-        //die();
         return $data;
     }
 

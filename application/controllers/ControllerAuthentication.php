@@ -11,7 +11,7 @@ Class ControllerAuthentication extends Controller {
     function action_logout($login = null, $password = null) {
         unset($_SESSION['user']);
         session_destroy();
-        header('Location: index.php?r=cd/index');
+        header('Location: /cd/index');
     }
 
     function action_login($login = null, $password = null) {
@@ -22,7 +22,7 @@ Class ControllerAuthentication extends Controller {
         }
         //Пробуем залогиниться
         elseif (ModelUser::login($login, $password)) { // Если логин и пароль заполнены
-            header('Location: index.php?r=main/index');
+            header('Location: /main/index');
         } else {
 
             $errors[] = 'Ошибка аутентификации.';

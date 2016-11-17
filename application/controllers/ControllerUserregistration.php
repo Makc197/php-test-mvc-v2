@@ -28,7 +28,7 @@ Class ControllerUserregistration extends Controller {
                     //die;
 
                     if (empty($errors[0]) && $user->save()) {
-                        header('Location: index.php?r=authentication/login');
+                        header('Location: /authentication/login');
                     }
                 } else {
                     $errors[] = "Неверно указан код с изображения";

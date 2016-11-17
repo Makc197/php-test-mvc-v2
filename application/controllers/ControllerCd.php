@@ -3,7 +3,7 @@
 class ControllerCd extends Controller {
     
     function getAccess($action) { // ????Перенести в родительский класс
-        //~M 26.10.2016
+
         $errors = [];
         $access = isset($_SESSION['user']);
         // return $access  && parent::getAccess($action);
@@ -29,10 +29,9 @@ class ControllerCd extends Controller {
     }
 
     function action_delete($id) {
-        //var_dump('id='.$id);die;       
+     
         ModelCd::delete_by_id($id);
-        $data = ModelCd::get_data();
-        $this->view->generate('cd_list.php', 'template_view.php', $data);
+        header('Location: /cd/index');
     }
 
     function action_create() {
@@ -50,7 +49,7 @@ class ControllerCd extends Controller {
             
             if (!$errors && $cd->save()) {
                 // redirect
-                header('Location: index.php?r=cd/index');
+                header('Location: /cd/index');
             }
         } else {
             $cd = ModelCD::get_by_id($id);

@@ -5,7 +5,7 @@ class ControllerExample1 extends Controller {
     //Задача №1. Определить длину цепи между точками по координатам
     function action_reset() {
         unset($_SESSION['xy']);
-        header('Location: /?r=example1/calculate');
+        header('Location: /example1/calculate');
     }
 
     function action_calculate() {

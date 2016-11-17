@@ -10,8 +10,7 @@ class ControllerBook extends Controller
         // 
         //По дефолту разрешим всем видеть
         //return true;
-        //
-        //~M 26.10.2016
+
         $errors = [];
         $access = isset($_SESSION['user']);
         // return $access  && parent::getAccess($action);
@@ -35,8 +34,6 @@ class ControllerBook extends Controller
 
     function action_delete($id)
     {
-        //http_response_code(500);
-        //die;
 
         $c = ModelBook::delete_by_id($id);
 
@@ -44,7 +41,7 @@ class ControllerBook extends Controller
             die(json_encode($c));
         }
 
-        header('Location: index.php/?r=book/index');
+        header('Location: /book/index');
     }
 
     function action_create()
@@ -63,7 +60,7 @@ class ControllerBook extends Controller
             $errors = $book->validate(); //Проверяем введенные данные
             if (!$errors && $book->save()) {
                 // redirect
-                header('Location: index.php?r=book/index');
+                header('Location: /book/index');
             }
         } else {
             $book = ModelBook::get_by_id($id);

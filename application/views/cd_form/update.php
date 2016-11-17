@@ -17,7 +17,7 @@
             </ul>
         <?php endif; ?>
 
-        <form id="form_1" method="post" action="/?r=cd/update&id=<?= $product->getID(); ?>">
+        <form id="form_1" method="post" action="/cd/update?id=<?= $product->getID(); ?>">
 
 
             <input type="hidden" name="id" value="<?= $product->getID(); ?>">

@@ -12,7 +12,7 @@
             </ul>
         <?php endif; ?>
 
-        <form id="form_1" method="post" action="/?r=authentication/login">
+        <form id="form_1" method="post" action="/authentication/login">
 
             <div class="form-group">
                 <label for="username">Login:</label>
@@ -40,7 +40,7 @@
                             class="btn btn-default">Clear</button>
                     </div>
                     <div class="col-md-2 col-md-offset-4">
-                        <a href='/?r=userregistration/create' class="btn btn-default text-right">Зарегистрироваться</a>
+                        <a href='/userregistration/create' class="btn btn-default text-right">Зарегистрироваться</a>
                     </div>
                 </div>
             </div>

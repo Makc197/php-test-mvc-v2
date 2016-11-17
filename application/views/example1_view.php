@@ -1,6 +1,6 @@
 <h1>Задача №1. Расчет длины цепи по координатам точек </h1>
 
-<form class="form-inline" id="example1" method="post" action="/?r=example1/calculate">
+<form class="form-inline" id="example1" method="post" action="/example1/calculate">
     <div class="form-group">
         <label for="x">X:</label>
         <input required class="form-control" type="text" name="Math_x"
@@ -12,7 +12,7 @@
                value="">
     </div>
     <button type="submit" name="submit" class="btn btn-default">Submit</button>
-    <a href='/?r=example1/reset' class="btn btn-default">Reset</a>
+    <a href='/example1/reset' class="btn btn-default">Reset</a>
 </form>
 <br>
 <canvas id="lines" width="400" height="400"></canvas>

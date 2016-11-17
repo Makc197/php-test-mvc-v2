@@ -306,7 +306,7 @@ class ModelUser extends Model
         $sql = "DELETE FROM `users` WHERE (`id`='" . $id . "')";
         self::getMySQLDb()->query($sql);
 
-        header('Location: index.php?r=usermanagement');
+        header('Location: /usermanagement');
     }
 
     public function validate()

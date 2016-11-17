@@ -33,21 +33,20 @@ class Paginator
             $finpos = $countOfPages;
         }
 
-        $action = $_GET['r'];
+        $action = '';
 
         $html = ''.($curpos+1)."/".($countOfPages+1);
-        //$html = '';
+ 
         $html .= '<ul class="pagination">';
 
-        $html .= '<li><a href="?r=' . $action . '&offset=0">&laquo;</a></li>';
+        $html .= '<li><a href="' . $action . '?offset=0">&laquo;</a></li>';
 
-        //for($i=0; $i<=$countOfPages; $i++)
         for ($i = $startpos; $i <= $finpos; $i++) {
 			$classname= $i==$curpos ? 'class="current"' : "";
-            $html .= '<li '.$classname.'><a href="?r=' . $action . '&offset=' . ($i * $this->limit) . '">' . ($i + 1) . '</a></li>';
+            $html .= '<li '.$classname.'><a href="' . $action . '?offset=' . ($i * $this->limit) . '">' . ($i + 1) . '</a></li>';
         }
 
-        $html .= '<li><a href="?r=' . $action . '&offset=' . (($countOfPages) * $this->limit) . '">&raquo;</a></li>';
+        $html .= '<li><a href="' . $action . '?offset=' . (($countOfPages) * $this->limit) . '">&raquo;</a></li>';
 
         /* from dev2*/
         return $html;

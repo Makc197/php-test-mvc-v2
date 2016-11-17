@@ -1,5 +1,5 @@
 <div class="btn-group">
-    <a id="create_product_button" class="btn btn-create-new btn-primary btn-md" role="button" href="?r=product/create">Добавить товар в базу</a>
+    <a id="create_product_button" class="btn btn-create-new btn-primary btn-md" role="button" href="/product/create">Добавить товар в базу</a>
 </div>
 <div class="table-block-400">
 <table class="table">
@@ -17,20 +17,20 @@
         <tr>
             <td><?php echo $shopProduct->getId(); ?></td>
             <td><?php echo $shopProduct->getType(); ?></td>
-            <td><a href='?r=product/view&id=<?php echo $id; ?>'>
+            <td><a href='/product/view?id=<?php echo $id; ?>'>
                     <?php echo $shopProduct->getTitle() ?></a>
             </td>
             <td><?php echo $shopProduct->getDescription(); ?></td>
             <td><?php echo $shopProduct->getPrice(); ?></td>
 
             <td>
-                <a href="?r=product/view&id=<?php echo $id; ?>">
+                <a href="/product/view?id=<?php echo $id; ?>">
                     <span class="glyphicon glyphicon-search"></span>
                 </a>
-                <a href="?r=product/update&id=<?php echo $id; ?>">
+                <a href="/product/update?id=<?php echo $id; ?>">
                     <span class="glyphicon glyphicon-pencil"></span>
                 </a>
-                <a href="?r=product/delete&id=<?php echo $id; ?>">
+                <a href="/product/delete?id=<?php echo $id; ?>">
                     <span class="glyphicon glyphicon-trash"></span>
                 </a>
             </td>

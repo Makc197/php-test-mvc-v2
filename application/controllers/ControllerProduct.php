@@ -35,10 +35,8 @@ class ControllerProduct extends Controller {
     }
 
     function action_delete($id) {
-        //var_dump('id='.$id);die;
         ModelProduct::delete_by_id($id);
-        $data = ModelProduct::get_data();
-        $this->view->generate('product_list.php', 'template_view.php', $data);
+        header('Location: /product/index');
     }
 
     function action_create() {
@@ -55,7 +53,7 @@ class ControllerProduct extends Controller {
             $errors = $product->validate(); //Проверяем введенные данные
             if (!$errors && $product->save()) {
                 
-                header('Location: index.php?r=product/index');
+                header('Location: /product/index');
             }
         } else {
             $product = ModelProduct::get_by_id($id);

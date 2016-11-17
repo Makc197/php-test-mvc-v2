@@ -9,7 +9,7 @@ class ControllerAdmin extends Controller {
     }
     
     function action_index() {
-        die('<a href="/?r=usermanagement/index">Users</a>');
+        die('<a href="/usermanagement/index">Users</a>');
         $this->view->generate('user_list.php', 'template_view.php', $data);
     }
 

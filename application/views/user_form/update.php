@@ -14,7 +14,7 @@
             </ul>
         <?php endif; ?>
 
-        <form id="form_1" method="post" action="/?r=usermanagement/update">
+        <form id="form_1" method="post" action="/usermanagement/update">
 
             <input type="hidden" name="id" value="<?= $user->getID(); ?>">
 

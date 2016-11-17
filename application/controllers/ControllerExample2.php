@@ -5,7 +5,7 @@ class ControllerExample2 extends Controller {
     //Задача №2. Рисуем символ и сохраняем в BMP
 
     function action_reset() {
-        header('Location: /?r=example2/drawchar');
+        header('Location: /example2/drawchar');
     }
 
     function action_drawchar() {

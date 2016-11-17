@@ -10,25 +10,18 @@ class Route {
 
         $params = [];
 
-        $start = mb_strpos($_SERVER['REQUEST_URI'], '?');
-        var_dump($_SERVER['REQUEST_URI']);die();
+        $routes = explode('/', $_SERVER['REQUEST_URI']);
+        array_shift($routes);
+            
+        //var_dump($routes);die();
         
-        if ($start) {
-            $paramsString = mb_substr($_SERVER['REQUEST_URI'], $start + 1);
-            parse_str($paramsString, $params);
+        // получаем имя контроллера
+        if (!empty($routes[0])) {
+            $controller_name = $routes[0];
         }
-
-        if (isset($params['r'])) {
-            $routes = explode('/', $params['r']);
-            // получаем имя контроллера
-            if (!empty($routes[0])) {
-                $controller_name = $routes[0];
-            }
-            // получаем имя экшена
-            if (!empty($routes[1])) {
-                $action_name = $routes[1];
-            }
-            unset($params['r']);
+        // получаем имя экшена
+        if (!empty($routes[1])) {
+            $action_name = explode('?', $routes[1])[0];
         }
 
         // добавляем префиксы
@@ -73,7 +66,7 @@ class Route {
                     $method_params[] = $params[$argument->name];
             }
             $access = $controller->getAccess($action); //Разрешен доступ ?
-            //~M 26.10.2016 ???
+
             //var_dump($access['errors']); die; 
             //Если разрешен - роутим дальше - определяем контроллер и действие - вызываем необх функцию
             if (!$access['errors'] & $access) { // Если нет ошибок и доступ разрешен ???

@@ -1,5 +1,5 @@
 <div class="btn-group">
-    <a id="create_cd_button" class="btn btn-create-new btn-primary btn-md" role="button" href="?r=cd/create">Добавить CD в базу</a>
+    <a id="create_cd_button" class="btn btn-create-new btn-primary btn-md" role="button" href="/cd/create">Добавить CD в базу</a>
 </div>
 <div class="table-block-400">
 <table class="table">
@@ -20,7 +20,7 @@
             <td><?php echo $id; ?></td>
             <td><?php echo $shopProduct->getType(); ?></td>
             <td>
-                <a href="?r=cd/view&id=<?php echo $id;?>">
+                <a href="/cd/view?id=<?php echo $id;?>">
                     <?php echo $shopProduct->getTitle();?>
                 </a>
             </td>
@@ -29,13 +29,13 @@
             <td><?php echo $shopProduct->getAuthor(); ?></td>
             <td><?php echo $shopProduct->getPlayLenght(); ?></td>
             <td>
-                <a href="?r=cd/view&id=<?php echo $id; ?>">
+                <a href="/cd/view?id=<?php echo $id; ?>">
                     <span class="glyphicon glyphicon-search"></span>
                 </a>
-                <a href="?r=cd/update&id=<?php echo $id; ?>">
+                <a href="/cd/update?id=<?php echo $id; ?>">
                     <span class="glyphicon glyphicon-pencil"></span>
                 </a>
-                <a href="?r=cd/delete&id=<?php echo $id; ?>">
+                <a href="/cd/delete?id=<?php echo $id; ?>">
                     <span class="glyphicon glyphicon-trash"></span>
                 </a>
             </td>

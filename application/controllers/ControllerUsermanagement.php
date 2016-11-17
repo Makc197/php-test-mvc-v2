@@ -47,7 +47,7 @@ class ControllerUsermanagement extends Controller
             $errors = $user->validate(); //Проверяем введенные данные
             //var_dump($errors);die;
             if (!$errors && $user->save()) {
-                header('Location: index.php?r=usermanagement/index');
+                header('Location: /usermanagement/index');
             }
         }
         
@@ -71,7 +71,7 @@ class ControllerUsermanagement extends Controller
             $user = ModelUser::create_user($_POST); //создаем объект User
             $errors = $user->validate(); //Проверяем введенные данные
             if (!$errors && $user->save()) {
-                header('Location: index.php?r=usermanagement/index');
+                header('Location: /usermanagement/index');
             }
         }
 
@@ -83,5 +83,6 @@ class ControllerUsermanagement extends Controller
     function action_delete($id)
     {
         ModelUser::delete_user_by_id($id);
+        header('Location: /usermanagement/index');
     }
 }

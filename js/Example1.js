@@ -39,8 +39,8 @@ var SCALE = 1;
         function sendCoorinate(cord, callback){
             console.log(cord);
             //Асинхронный запрос - передаем координаты точки методом POST в ControllerExample1 action_calculate
-            //url="/?r=example1/calculate"
-            //<form .... id="example1" method="post" action="/?r=example1/calculate">               
+            //url="/example1/calculate"
+            //<form .... id="example1" method="post" action="/example1/calculate">               
             var url = $("#example1").attr('action');
             $.post(url,{'Math_x':cord.x, 'Math_y':cord.y},function(){
                 callback();

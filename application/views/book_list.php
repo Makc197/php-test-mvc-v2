@@ -1,5 +1,5 @@
 <div class="btn-group">
-    <a id="create_book_button" class="btn btn-create-new btn-primary btn-md" role="button" href="?r=book/create">Добавить книгу в базу</a>
+    <a id="create_book_button" class="btn btn-create-new btn-primary btn-md" role="button" href="/book/create">Добавить книгу в базу</a>
 </div>
 
 <div class="table-block-400">
@@ -20,7 +20,7 @@
         <tr class="book" data-id="<?php echo $id; ?>">
             <td><?php echo $id; ?></td>
             <td><?php echo $shopProduct->getType(); ?></td>
-            <td><a href='?r=book/view&id=<?php echo $id; ?>'>
+            <td><a href='/book/view?id=<?php echo $id; ?>'>
                     <?php echo $shopProduct->getTitle() ?></a>
             </td>
             <td><?php echo $shopProduct->getDescription(); ?></td>
@@ -28,13 +28,13 @@
             <td><?php echo $shopProduct->getAuthor(); ?></td>
             <td><?php echo $shopProduct->getNumberOfPages(); ?></td>
             <td>
-                <a href="?r=book/view&id=<?php echo $id; ?>">
+                <a href="/book/view?id=<?php echo $id; ?>">
                     <span class="glyphicon glyphicon-search"></span>
                 </a>
-                <a href="?r=book/update&id=<?php echo $id; ?>">
+                <a href="/book/update?id=<?php echo $id; ?>">
                     <span class="glyphicon glyphicon-pencil"></span>
                 </a>
-                <a class="delete-book-link" href="?r=book/delete&id=<?php echo $id; ?>">
+                <a class="delete-book-link" href="/book/delete?id=<?php echo $id; ?>">
                     <span class="glyphicon glyphicon-trash"></span>
                 </a>
             </td>

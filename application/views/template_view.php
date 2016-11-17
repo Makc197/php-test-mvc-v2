@@ -46,9 +46,9 @@
                         
                         <li class="dropdown"><a href="#"class="dropdown-toggle" data-toggle="dropdown">Каталог товаров<b class="caret"></b></a>
                             <ul class="dropdown-menu">
-                                <li><a href="/?r=book/index">Книги</a></li>
-                                <li><a href="/?r=cd/index">Компакт диски</a></li>
-                                <li><a href="/?r=product/index">Прочие товары</a></li>
+                                <li><a href="/book/index">Книги</a></li>
+                                <li><a href="/cd/index">Компакт диски</a></li>
+                                <li><a href="/product/index">Прочие товары</a></li>
                                 <li class="divider"></li>
                                 <li><a href="#">Отдельная ссылка</a></li>
                                 <li class="divider"></li>
@@ -58,8 +58,8 @@
                         
                         <li class="dropdown"><a href="#"class="dropdown-toggle" data-toggle="dropdown">Тестовые задачки<b class="caret"></b></a>
                             <ul class="dropdown-menu">
-                                <li><a href="/?r=example1/calculate">Точки. Длина цепи.</a></li>
-                                <li><a href="/?r=example2/drawchar">Рисуем и сохраняем BMP</a></li>
+                                <li><a href="/example1/calculate">Точки. Длина цепи.</a></li>
+                                <li><a href="/example2/drawchar">Рисуем и сохраняем BMP</a></li>
                                 <li><a href="#">Тестовая задача №3</a></li>
                                 <li class="divider"></li>
                                 <li><a href="#">Отдельная ссылка</a></li>
@@ -69,7 +69,7 @@
                         <?php if(isset($_SESSION['user']) && ($_SESSION['user']['role_code'] == 'admin')): ?>
                         <li class="dropdown"><a href="#"class="dropdown-toggle" data-toggle="dropdown">Администрирование<b class="caret"></b></a>
                             <ul class="dropdown-menu">
-                                <li><a href="/?r=usermanagement/index">Список пользователей</a></li>
+                                <li><a href="/usermanagement/index">Список пользователей</a></li>
                                 <li><a href="#">...</a></li>
                             </ul>
                         </li>
@@ -77,9 +77,9 @@
 
                         <li>
                             <?php if(!isset($_SESSION['user'])): ?>
-                                <a href="/?r=authentication/login">Войти</a>
+                                <a href="/authentication/login">Войти</a>
                             <?php else :?>
-                                <a href="/?r=authentication/logout">(<?php echo $_SESSION['user']['username']; ?>)Выйти</a>
+                                <a href="/authentication/logout">(<?php echo $_SESSION['user']['username']; ?>)Выйти</a>
                             <?php endif;?>
                         </li>                        
 
