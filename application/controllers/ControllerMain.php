@@ -1,4 +1,7 @@
 <?php
+namespace controllers;
+
+use core\Controller;
 
 class ControllerMain extends Controller {
 

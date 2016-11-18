@@ -1,4 +1,7 @@
 <?php
+namespace models;
+
+use core\Model;
 
 class ModelBook extends ModelProduct
 {

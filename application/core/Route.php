@@ -1,4 +1,8 @@
 <?php
+namespace core;
+
+use core\Controller;
+use controllers;
 
 class Route {
 
@@ -53,14 +57,16 @@ class Route {
         }
 
         // создаем контроллер
+        $controller_name="controllers\\".$controller_name;
         $controller = new $controller_name;
         $action = $action_name;
 
         if (method_exists($controller, $action)) {
             $params = $_REQUEST;
             $method_params = [];
+            
             // вызываем действие контроллера
-            $ref = new ReflectionMethod($controller_name, $action);
+            $ref = new \ReflectionMethod($controller_name, $action);
             foreach ($ref->getParameters() as $argument) {
                 if (isset($params[$argument->name]))
                     $method_params[] = $params[$argument->name];

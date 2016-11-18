@@ -1,4 +1,9 @@
 <?php
+namespace classes;
+
+//use namespaces:
+//use name1\Database as data1;
+//use name2\Database as data2;
 
 class DataBase {
 
@@ -20,7 +25,7 @@ class DataBase {
 
     static public function init($config) {
         if (self::$instance === null) {
-            self::$instance = new PDO($config['dsn'], $config['user'], $config['password']);
+            self::$instance = new \PDO($config['dsn'], $config['user'], $config['password']);
         }
     }
 

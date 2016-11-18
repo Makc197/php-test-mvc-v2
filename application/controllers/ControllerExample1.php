@@ -1,4 +1,5 @@
 <?php
+namespace controllers;
 
 class ControllerExample1 extends Controller {
 

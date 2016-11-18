@@ -1,4 +1,7 @@
 <?php
+namespace controllers;
+
+use core\Controller;
 
 class ControllerBook extends Controller
 {

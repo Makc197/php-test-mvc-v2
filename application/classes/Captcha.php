@@ -1,4 +1,6 @@
 <?php
+namespace classes;
+
 class Captcha {
     static function write() {
         // Создание изображения

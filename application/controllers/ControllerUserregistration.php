@@ -1,4 +1,5 @@
 <?php
+namespace controllers;
 
 Class ControllerUserregistration extends Controller {
 
