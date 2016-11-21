@@ -1,10 +1,11 @@
 <?php
+
 namespace models;
 
 use core\Model;
+use classes\Paginator;
 
-class ModelUser extends Model
-{
+class ModelUser extends Model {
 
     private $id = 0;
     private $forename; //Имя
@@ -16,8 +17,7 @@ class ModelUser extends Model
 
     //конструктор класса User
 
-    public function __construct($forename = null, $surname = null, $username = null, $password = null, $token = null, $role = null)
-    {
+    public function __construct($forename = null, $surname = null, $username = null, $password = null, $token = null, $role = null) {
         $this->forename = $forename;
         $this->surname = $surname;   //присвоили атрибутам класса значения взятые из конструктора класса
         $this->username = $username;
@@ -26,78 +26,63 @@ class ModelUser extends Model
         $this->role = $role;
     }
 
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
-    public function setId($id)
-    {
+    public function setId($id) {
         $this->id = $id;
     }
 
-    public function getForeName()
-    {
+    public function getForeName() {
         return $this->forename;
     }
 
-    public function setForeName($forename)
-    {
+    public function setForeName($forename) {
         $this->forename = $forename;
     }
 
-    public function getSurName()
-    {
+    public function getSurName() {
         return $this->surname;
     }
 
-    public function setSurName($surname)
-    {
+    public function setSurName($surname) {
         $this->surname = $surname;
     }
 
-    public function getUserName()
-    {
+    public function getUserName() {
         return $this->username;
     }
 
-    public function setUserName($username)
-    {
+    public function setUserName($username) {
         $this->username = $username;
     }
 
-    public function getPassword()
-    {
+    public function getPassword() {
         return $this->password;
     }
 
-    public function setPassword($password)
-    {
+    public function setPassword($password) {
         $this->password = $password;
     }
 
-    public function getToken()
-    {
+    public function getToken() {
         return $this->token;
     }
 
-    public function getRoleId()
-    {
+    public function getRoleId() {
         return $this->role['role_id'];
     }
 
-    public function getRoleCode()
-    {
+    public function getRoleCode() {
         return $this->role['role_code'];
     }
 
-    public function getRoleName()
-    {
+    public function getRoleName() {
         return $this->role['role_name'];
     }
 
-    private static function setToken($password)
-    {
+    private static function setToken($password) {
         $slt1 = "wci~23";
         $slt2 = "lfr@87";
         //var_dump(md5("$slt1$password$slt2")); die;
@@ -106,8 +91,7 @@ class ModelUser extends Model
     }
 
 //Функция аутентификации
-    public static function login($login, $password)
-    {
+    public static function login($login, $password) {
 //1 - делаем токен для $password
         $token = self::setToken($password);
 //2 - проверяем  пару $login $token в таблице users и если ОК 
@@ -126,16 +110,15 @@ class ModelUser extends Model
         return false;
     }
 
-    static function get_user_by_login_token($login, $token)
-    {
+    static function get_user_by_login_token($login, $token) {
 
         $row = self::getMySQLDb()->query("SELECT u.*, "
-            . "ur.role_code, ur.role_name "
-            . "FROM users u "
-            . "JOIN user_roles ur"
-            . " ON ur.id=u.role_id "
-            . "WHERE `username` = '{$login}' "
-            . "AND `token`= '{$token}' LIMIT 1")->fetch();
+                        . "ur.role_code, ur.role_name "
+                        . "FROM users u "
+                        . "JOIN user_roles ur"
+                        . " ON ur.id=u.role_id "
+                        . "WHERE `username` = '{$login}' "
+                        . "AND `token`= '{$token}' LIMIT 1")->fetch();
 
         if ($row) {
             $user = new self($row['forename'], $row['surname'], $row['username'], $row['password'], $row['token'], ['role_id' => $row['role_id'], 'role_code' => $row['role_code'], 'role_name' => $row['role_name']]);
@@ -146,15 +129,14 @@ class ModelUser extends Model
         return NULL;
     }
 
-    static function get_user_by_id($id)
-    {
+    static function get_user_by_id($id) {
         //var_dump($id);die;
         $row = self::getMySQLDb()->query("SELECT u.*, "
-            . "ur.role_code, ur.role_name "
-            . "FROM users u "
-            . "JOIN user_roles ur"
-            . " ON ur.id=u.role_id "
-            . "WHERE u.id = {$id}")->fetch();
+                        . "ur.role_code, ur.role_name "
+                        . "FROM users u "
+                        . "JOIN user_roles ur"
+                        . " ON ur.id=u.role_id "
+                        . "WHERE u.id = {$id}")->fetch();
 
         if ($row) {
             $user = new self($row['forename'], $row['surname'], $row['username'], $row['password'], $row['token'], ['role_id' => $row['role_id'], 'role_code' => $row['role_code'], 'role_name' => $row['role_name']]);
@@ -165,8 +147,25 @@ class ModelUser extends Model
         return NULL;
     }
 
-    public static function getCountOfRows()
-    {
+    static function get_user_by_username($login) {
+
+        $row = self::getMySQLDb()->query("SELECT u.*, "
+                        . "ur.role_code, ur.role_name "
+                        . "FROM users u "
+                        . "JOIN user_roles ur"
+                        . " ON ur.id=u.role_id "
+                        . "WHERE u.username = {$login}")->fetch();
+
+        if ($row) {
+            $user = new self($row['forename'], $row['surname'], $row['username'], $row['password'], $row['token'], ['role_id' => $row['role_id'], 'role_code' => $row['role_code'], 'role_name' => $row['role_name']]);
+            $user->setID($row['id']);
+            return $user;
+        }
+
+        return NULL;
+    }
+
+    public static function getCountOfRows() {
         $query = "SELECT COUNT(id) c FROM users;";
         $result = self::getMySQLDb()->query($query)->fetch();
         if (isset($result['c']))
@@ -174,15 +173,14 @@ class ModelUser extends Model
         return false;
     }
 
-    static function get_data(Paginator $paginator = null)
-    {
+    static function get_data(Paginator $paginator = null) {
         $data = [];
 
         $query = "SELECT u.*, "
-            . "ur.role_code, ur.role_name "
-            . "FROM users u "
-            . "JOIN user_roles ur"
-            . " ON ur.id=u.role_id ";
+                . "ur.role_code, ur.role_name "
+                . "FROM users u "
+                . "JOIN user_roles ur"
+                . " ON ur.id=u.role_id ";
 
         if ($paginator) {
             $query .= " LIMIT {$paginator->offset},{$paginator->limit}";
@@ -200,13 +198,12 @@ class ModelUser extends Model
         return $data;
     }
 
-    public static function create_user($row)
-    {
+    public static function create_user($row) {
         //Создаем объект  User на основании данных массива $_POST
         $token = self::setToken($row['password']);
         //var_dump($token); die;
         $user = new self(
-            $row['forename'], $row['surname'], $row['username'], $row['password'], $token, [
+                $row['forename'], $row['surname'], $row['username'], $row['password'], $token, [
             'role_id' => isset($row['role_id']) ? $row['role_id'] : null,
             'role_code' => isset($row['role_code']) ? $row['role_code'] : null,
             'role_name' => isset($row['role_name']) ? $row['role_name'] : null
@@ -220,8 +217,7 @@ class ModelUser extends Model
      *
      * @return boolean
      */
-    public function save()
-    { //Если id есть - UPDATE
+    public function save() { //Если id есть - UPDATE
         // update or insert
         $id = $this->getId();
         if ($id) {
@@ -274,7 +270,6 @@ class ModelUser extends Model
             $stm = self::getMySQLDb()->prepare($sql);
             $values['id'] = $_POST['id'];
             $stm->execute($values);
-
         } else { //Если id нет - INSERT
             /* Было
               $sql = "INSERT INTO `users` "
@@ -303,8 +298,7 @@ class ModelUser extends Model
         return true;
     }
 
-    static function delete_user_by_id($id)
-    {
+    static function delete_user_by_id($id) {
 
         $sql = "DELETE FROM `users` WHERE (`id`='" . $id . "')";
         self::getMySQLDb()->query($sql);
@@ -312,8 +306,7 @@ class ModelUser extends Model
         header('Location: /usermanagement');
     }
 
-    public function validate()
-    {
+    public function validate() {
         $errors = [];
         if (!preg_match('/[0-9a-zA-Z]*/', $this->username))
             $errors[] = 'Ошибка в Login. Поле Login может содержать буквы на латинице и цифры.';

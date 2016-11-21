@@ -2,6 +2,8 @@
 namespace controllers;
 
 use core\Controller;
+use models\ModelBook;
+use classes\Paginator;
 
 class ControllerBook extends Controller
 {

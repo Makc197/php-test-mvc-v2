@@ -1,6 +1,10 @@
 <?php
 namespace controllers;
 
+use core\Controller;
+use models\ModelCd;
+use classes\Paginator;
+
 class ControllerCd extends Controller {
     
     function getAccess($action) { // ????Перенести в родительский класс

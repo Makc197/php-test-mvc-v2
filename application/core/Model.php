@@ -1,6 +1,8 @@
 <?php
 namespace core;
 
+use classes\DataBase;
+
 abstract class Model {
 
     protected static $db = null;

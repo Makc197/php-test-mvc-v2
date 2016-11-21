@@ -1,6 +1,9 @@
 <?php
 namespace controllers;
 
+use core\Controller;
+use classes\Point;
+
 class ControllerExample1 extends Controller {
 
     //Задача №1. Определить длину цепи между точками по координатам

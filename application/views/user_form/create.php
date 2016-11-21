@@ -49,7 +49,7 @@
             <div class="form-group">
                 <label for="userrole">Role:</label>
                 <?php
-                echo HtmlHelper::createSelect([
+                echo classes\HtmlHelper::createSelect([
                     'class' => 'form-control',
                     'name' => 'role_id'
                         ], $roles_data, $user->getRoleId());

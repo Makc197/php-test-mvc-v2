@@ -1,5 +1,10 @@
 <?php
+
 namespace controllers;
+
+use core\Controller;
+use models\ModelUser;
+use classes\Captcha;
 
 Class ControllerUserregistration extends Controller {
 
@@ -22,14 +27,18 @@ Class ControllerUserregistration extends Controller {
             } else {
                 if ($_SESSION["randStr"] == $_POST["answer"]) {
                     $_POST["role_id"] = "1";
-                    $user = ModelUser::create_user($_POST); //создаем объект User
-
-                    $errors[] = $user->validate(); //Проверяем введенные данные
-                    //var_dump($errors);
-                    //die;
-
-                    if (empty($errors[0]) && $user->save()) {
-                        header('Location: /authentication/login');
+                    //var_dump($_POST); die;
+                    $login=$_POST["username"];
+                    $user = ModelUser::get_user_by_username($login); //проверка на наличие пользователя с таким же username (login)
+                    If (isset($user)) {
+                        $errors[] = "Пользователь с таким username был зарегистрирован ранее";
+                    } else {
+                        //Регистрируем пользователя
+                        $user = ModelUser::create_user($_POST); //создаем объект User
+                        $errors[] = $user->validate(); //Проверяем введенные данные
+                        if (empty($errors[0]) && $user->save()) {
+                            header('Location: /authentication/login');
+                        }
                     }
                 } else {
                     $errors[] = "Неверно указан код с изображения";

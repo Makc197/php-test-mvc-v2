@@ -2,6 +2,7 @@
 namespace models;
 
 use core\Model;
+use classes\Paginator;
 
 class ModelCd extends ModelProduct {
 

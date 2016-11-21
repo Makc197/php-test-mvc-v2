@@ -1,6 +1,11 @@
 <?php
 namespace controllers;
 
+use core\Controller;
+use models\ModelProduct;
+use classes\Paginator;
+
+
 class ControllerProduct extends Controller {
     
     function getAccess($action) {

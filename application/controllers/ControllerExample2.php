@@ -1,6 +1,9 @@
 <?php
 namespace controllers;
 
+use core\Controller;
+use classes\Point;
+
 class ControllerExample2 extends Controller {
 
     //Задача №2. Рисуем символ и сохраняем в BMP
@@ -13,11 +16,9 @@ class ControllerExample2 extends Controller {
         $errors = [];
         $points = [];
         $str = '';
-        
-        
+                
        $s=strtotime($str);
-        
-        
+                
         //Рендерим вьюху
         $this->view->generate('example2_view.php', 'template_view.php', ['data' => $points, 'str' => $str, 'errors' => $errors]);
     }

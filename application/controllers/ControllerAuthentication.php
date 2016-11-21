@@ -1,6 +1,9 @@
 <?php
 namespace controllers;
 
+use core\Controller;
+use models\ModelUser;
+
 Class ControllerAuthentication extends Controller {
 
     function getAccess($action) {
