@@ -15,9 +15,9 @@ class UrlManager {
         foreach ($params as $key => $value) {
             if ($value !== null) {
                 if ($i > 0) {
-                    $url .= '&' . $key . '=' . $value;
+                    $url .= '&' . urlencode($key) . '=' . urlencode($value);
                 } else {
-                    $url .= $key . '=' . $value;
+                    $url .= urlencode($key) . '=' . urlencode($value);
                 }
             }
             ++$i;

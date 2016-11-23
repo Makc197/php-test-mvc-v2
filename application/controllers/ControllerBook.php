@@ -33,7 +33,6 @@ class ControllerBook extends Controller
         $paginator = new Paginator($count, 10);
         $paginator->offset = isset($_GET['offset']) ? $_GET['offset'] : 0;
         $data = ModelBook::get_data($paginator);
-
         $this->view->generate('book_list.php', 'template_view.php', ['data' => $data, 'paginator' => $paginator]);
     }
 

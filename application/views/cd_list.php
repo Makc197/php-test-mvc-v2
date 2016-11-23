@@ -4,7 +4,8 @@
 <div class="table-block-400">
     <table class="table">
         <thead>
-            <tr><th>Id</th>
+            <tr>
+                <th>Id</th>
                 <th>Type</th>
                 <th>Title</th>
                 <th>Description</th>
@@ -32,10 +33,10 @@
                     <a href="<?php echo \classes\UrlManager::createUrl('/cd/view', ['id' => $id]); ?>">
                         <span class="glyphicon glyphicon-search"></span>
                     </a>
-                    <a href="/cd/update?id=<?php echo $id; ?>">
+                    <a href="<?php echo \classes\UrlManager::createUrl('/cd/update', ['id' => $id]); ?>">
                         <span class="glyphicon glyphicon-pencil"></span>
                     </a>
-                    <a href="/cd/delete?id=<?php echo $id; ?>">
+                    <a href="<?php echo \classes\UrlManager::createUrl('/cd/delete', ['id' => $id]); ?>">
                         <span class="glyphicon glyphicon-trash"></span>
                     </a>
                 </td>

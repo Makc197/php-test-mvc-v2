@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Products catalog</title>
+        <title>TEST Portal</title>
 
         <!-- Bootstrap -->
         <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -39,11 +39,11 @@
                     <ul class="nav navbar-nav">
                         <!-- <li class="active"><a href="/">Главная</a></li> -->
                         <li>
-                        <a href="/">
-                            <span class="glyphicon glyphicon-home" style="font-size: 20px;"></span>
-                        </a>
+                            <a href="/">
+                                <span class="glyphicon glyphicon-home" style="font-size: 20px;"></span>
+                            </a>
                         </li>
-                        
+
                         <li class="dropdown"><a href="#"class="dropdown-toggle" data-toggle="dropdown">Каталог товаров<b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                 <li><a href="/book/index">Книги</a></li>
@@ -55,7 +55,7 @@
                                 <li><a href="#">Еще одна отдельная ссылка</a></li>
                             </ul>
                         </li>
-                        
+
                         <li class="dropdown"><a href="#"class="dropdown-toggle" data-toggle="dropdown">Тестовые задачки<b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                 <li><a href="/example1/calculate">Точки. Длина цепи.</a></li>
@@ -66,29 +66,32 @@
                             </ul>
                         </li>
 
-                        <?php if(isset($_SESSION['user']) && ($_SESSION['user']['role_code'] == 'admin')): ?>
-                        <li class="dropdown"><a href="#"class="dropdown-toggle" data-toggle="dropdown">Администрирование<b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="/usermanagement/index">Список пользователей</a></li>
-                                <li><a href="#">...</a></li>
-                            </ul>
-                        </li>
-                        <?php endif;?>
+                        <?php if (isset($_SESSION['user']) && ($_SESSION['user']['role_code'] == 'admin')): ?>
+                            <li class="dropdown"><a href="#"class="dropdown-toggle" data-toggle="dropdown">Администрирование<b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="/usermanagement/index">Список пользователей</a></li>
+                                    <li><a href="#">...</a></li>
+                                </ul>
+                            </li>
+                        <?php endif; ?>
 
                         <li>
-                            <?php if(!isset($_SESSION['user'])): ?>
-                                <a href="/authentication/login">Войти</a>
-                            <?php else :?>
+                            <?php if (!isset($_SESSION['user'])): ?>
+                                <!--<a href="/authentication/login">Войти</a>-->
+                                <a href="/authentication/login">
+                                    <span class="glyphicon glyphicon-user" style="font-size: 20px;"></span>                                   
+                                </a>
+                            <?php else : ?>
                                 <a href="/authentication/logout">(<?php echo $_SESSION['user']['username']; ?>)Выйти</a>
-                            <?php endif;?>
-                        </li>                        
+                            <?php endif; ?>
+                        </li>
 
                     </ul>
                 </div><!--/.nav-collapse -->
             </div>
         </div>
         <div class="container">
-            
+
             <?php include 'application/views/' . $content_view; ?>
 
         </div>			

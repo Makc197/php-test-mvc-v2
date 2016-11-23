@@ -13,12 +13,10 @@ class Route {
         $action_name = 'index';
 
         $params = [];
-
+        
         $routes = explode('/', $_SERVER['REQUEST_URI']);
         array_shift($routes);
-            
-        //var_dump($routes);die();
-        
+                    
         // получаем имя контроллера
         if (!empty($routes[0])) {
             $controller_name = $routes[0];
@@ -26,6 +24,7 @@ class Route {
         // получаем имя экшена
         if (!empty($routes[1])) {
             $action_name = explode('?', $routes[1])[0];
+            //$params=urldecode(explode('?', $routes[1])[1]);
         }
 
         // добавляем префиксы
@@ -52,8 +51,8 @@ class Route {
               правильно было бы кинуть здесь исключение,
               но для упрощения сразу сделаем редирект на страницу 404
              */
-            die('404');
-            //Route::ErrorPage404();
+            //die('404');
+            Route::ErrorPage404();
         }
 
         // создаем контроллер
