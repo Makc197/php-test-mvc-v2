@@ -61,4 +61,4 @@
 <!--Асинхронным запросом получаем массив точек из json, который сформировали в ControllerExample1 в function action_calculate()-->
 <script defer> var ALL_POINTS = <?=json_encode($data)?> </script> 
 <!--На основании массива точек рисуем линию в function drawLines() в js/Example1.js -->
-<script src="../../js/Example1.js" defer></script>
+<script src="/js/example1.js" defer></script>

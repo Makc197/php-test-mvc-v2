@@ -23,9 +23,9 @@ class HtmlHelper {
             $html .= '<td>' . $val . '</td>';
         }
 
-        $UrlView = \classes\UrlManager::createUrl('/'.$controller.'/view', ['id' => $id]);
-        $UrlUpdate = \classes\UrlManager::createUrl('/'.$controller.'/update', ['id' => $id]);
-        $UrlDelete = \classes\UrlManager::createUrl('/'.$controller.'/delete', ['id' => $id]);
+        $UrlView = UrlManager::createUrl('/'.$controller.'/view', ['id' => $id]);
+        $UrlUpdate = UrlManager::createUrl('/'.$controller.'/update', ['id' => $id]);
+        $UrlDelete = UrlManager::createUrl('/'.$controller.'/delete', ['id' => $id]);
 
         $html .= '<td><a href="' . $UrlView . '"><span class="glyphicon glyphicon-search"></span></a>';
         $html .= '<a href="' . $UrlUpdate . '"><span class="glyphicon glyphicon-pencil"></span></a>';
