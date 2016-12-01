@@ -45,3 +45,6 @@ ul.pagination li.current a{
     background-color: #f5f5f5;
 }
 
+.menubtn {
+    width: 500px;
+}

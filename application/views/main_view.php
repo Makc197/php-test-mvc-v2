@@ -1,6 +1,6 @@
-<h1> 
+<h3> 
     MainView
-</h1>
+</h3>
 
 <?php
 $id = 7;

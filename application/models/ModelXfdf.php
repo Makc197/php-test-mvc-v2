@@ -7,10 +7,10 @@ class ModelXfdf {
     public $java = "java";
     public $jar = SITE_PATH . "/resources/xfdffill.jar";
     public $origin = "";
-    public $temp = 'd:\OpenServer\userdata\temp\php-test-mvc-v2\\';
+    public $temp = SITE_PATH . '/../files/';
     public $url = '/files/';
-    public $result_data = "";
-    public $result = "";
+    public $resultxfdf_data = "";
+    public $resultpdf = "";
     public $data;
 
     public function __construct($origin) {
@@ -29,9 +29,9 @@ class ModelXfdf {
     public function genirationXFDF() {
         $name = microtime(true);
         $this->url .= $name . ".pdf";
-        $this->result = $this->temp . $name . ".pdf";
-        $this->result_data = $this->temp . $name . ".xfdf";
-        $header = '<?xml version="1.0" encoding="UTF-8"?><xfdf xmlns="http://ns.adobe.com/xfdf/" xml:space="preserve"><f href="' . $this->result . '"/><fields>';
+        $this->resultpdf = $this->temp . $name . ".pdf";
+        $this->resultxfdf_data = $this->temp . $name . ".xfdf";
+        $header = '<?xml version="1.0" encoding="UTF-8"?><xfdf xmlns="http://ns.adobe.com/xfdf/" xml:space="preserve"><f href="' . $this->resultpdf . '"/><fields>';
         $footer = '</fields></xfdf>';
 
         $body = $this->genFieldName($this->data);
@@ -41,14 +41,33 @@ class ModelXfdf {
         //$chrarr = array(chr ( 10 ), chr ( 13 ), chr ( 9 ));
         //$xfdf_data = str_ireplace ( $chrarr , '' , $xfdf_data);
 
-        file_put_contents($this->result_data, $xfdf_data);
+        file_put_contents($this->resultxfdf_data, $xfdf_data);
         $exec = sprintf(
-                '%s -jar "%s" "%s" "%s" "%s"', $this->java, $this->jar, $this->result, $this->origin, $this->result_data
+                '%s -jar "%s" "%s" "%s" "%s"', $this->java, $this->jar, $this->resultpdf, $this->origin, $this->resultxfdf_data
         );
         exec($exec);
-        
-        echo $exec;
-        //unlink($this->result_data);
+
+        //echo $exec;
+        unlink($this->resultxfdf_data);
+        /*
+          if (file_exists($this->resultpdf)) {
+          if (ob_get_level()) {
+          ob_end_clean();
+          }
+          header('Content-Description: File Transfer');
+          header('Content-Type: application/octet-stream');
+          header('Content-Disposition: attachment; filename=' . basename($this->resultpdf));
+          header('Content-Transfer-Encoding: binary');
+          header('Expires: 0');
+          header('Cache-Control: must-revalidate');
+          header('Pragma: public');
+          header('Content-Length: ' . filesize($this->resultpdf));
+          readfile($this->resultpdf);
+          }
+
+          unlink($this->resultpdf);
+         * 
+         */
     }
 
     public function genFieldName($field) {

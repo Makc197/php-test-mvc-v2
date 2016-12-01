@@ -2,7 +2,7 @@
  * Функция для отправки формы средствами Ajax 
  **/
 function AjaxFormRequest(result_id, form_id, url) {
-    document.getElementById(result_id).innerHTML = 'Ожидайте, идет формирование заявления';
+    document.getElementById(result_id).innerHTML = 'Ожидайте... ';
     jQuery.ajax({
         url: url, //Адрес подгружаемой страницы 
         type: "POST", //Тип запроса 
