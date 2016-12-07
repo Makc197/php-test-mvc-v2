@@ -3,8 +3,9 @@ namespace models;
 
 use core\Model;
 use classes\Paginator;
+use core\ViewGridInterface;
 
-class ModelCd extends ModelProduct {
+class ModelCd extends ModelProduct implements ViewGridInterface {
 
     private $author;
     private $playLenght = 0;
@@ -15,6 +16,19 @@ class ModelCd extends ModelProduct {
         $this->playLength = $playLenght;
     }
 
+    function getAttributeLabels() {
+        //Соотношение Поле в БД - Лейбл - для дальнейшей отрисовки View
+        return [
+            'id'=>'ID',
+            'type'=>'Тип',
+            'title'=>'Наименование',
+            'description'=>'Описание',
+            'price'=>'Цена',
+            'author'=>'Автор',
+            'playlenght'=>'Продолжительность'
+        ];
+    }
+        
     public function getAuthor() {
         return $this->author;
     }

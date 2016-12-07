@@ -9,7 +9,7 @@ class ModelProduct extends Model
 
     private $id = 0;
     private $type;
-    private $title; //определили атрибуты (или они же свойства или они же поля) класса как публичные - общедоступные
+    private $title; //определили свойства класса как публичные - общедоступные
     private $description;
     protected $price;
 
@@ -17,7 +17,7 @@ class ModelProduct extends Model
     public function __construct($type = 'product', $title = null, $description = null, $price = null)
     {
         $this->type = $type;
-        $this->title = $title;   //присвоили атрибутам класса значения взятые из конструктора класса
+        $this->title = $title;   //присвоили свойствам класса значения взятые из конструктора класса
         $this->description = $description;
         $this->price = $price;
     }

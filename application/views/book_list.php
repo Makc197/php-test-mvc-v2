@@ -6,7 +6,8 @@
     <table class="table">
 
         <?php
-        //Рисуем шапку таблицы
+        //1й Вариант реализации GRID view
+        //Рисуем шапку таблицы используя HtmlHelper::createTableHeader
         $tableheader = array('Id', 'Type', 'Title', 'Description', 'Price', 'Author', 'NumberOfPages', 'Actions');
         echo \classes\HtmlHelper::createTableHeader($tableheader);
         
@@ -23,8 +24,9 @@
                 'Author' => $shopProduct->getAuthor(),
                 'NumberOfPages' => $shopProduct->getNumberOfPages()
             ];
-            //Рисуем строку таблицы
-            echo \classes\HtmlHelper::createTableRow($row, $controller);
+            
+            //Рисуем строку таблицы c Actions используя HtmlHelper::createTableRowWithActions
+            echo \classes\HtmlHelper::createTableRowWithActions($row, $controller);
             //Обнуляем массив
             unset($row);
         }
@@ -35,6 +37,7 @@
 <?php echo $paginator->html(); ?>
 
 <script>
+    //Тест асинхронное удаление записи
     $(function () {
         $(".delete-book-link").click(function (event) {
 

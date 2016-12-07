@@ -9,7 +9,7 @@ class HtmlHelper {
         foreach ($data as $val) {
             $html .= '<th>' . $val . '</th>';
         }
-        $html .='</tr></thead>';
+        $html .= '</tr></thead>';
 
         return $html;
     }
@@ -20,12 +20,24 @@ class HtmlHelper {
 
         $html = '<tr class="' . $controller . '" data-id="' . $id . '">';
         foreach ($data as $val) {
+            $html .= '<td>' . $val . '</td></tr>';
+        }
+
+        return $html;
+    }
+
+    static function createTableRowWithActions(array $data, $controller) {
+
+        $id = $data['Id'];
+
+        $html = '<tr class="' . $controller . '" data-id="' . $id . '">';
+        foreach ($data as $val) {
             $html .= '<td>' . $val . '</td>';
         }
 
-        $UrlView = UrlManager::createUrl('/'.$controller.'/view', ['id' => $id]);
-        $UrlUpdate = UrlManager::createUrl('/'.$controller.'/update', ['id' => $id]);
-        $UrlDelete = UrlManager::createUrl('/'.$controller.'/delete', ['id' => $id]);
+        $UrlView = UrlManager::createUrl('/' . $controller . '/view', ['id' => $id]);
+        $UrlUpdate = UrlManager::createUrl('/' . $controller . '/update', ['id' => $id]);
+        $UrlDelete = UrlManager::createUrl('/' . $controller . '/delete', ['id' => $id]);
 
         $html .= '<td><a href="' . $UrlView . '"><span class="glyphicon glyphicon-search"></span></a>';
         $html .= '<a href="' . $UrlUpdate . '"><span class="glyphicon glyphicon-pencil"></span></a>';
@@ -37,12 +49,12 @@ class HtmlHelper {
     static function createSelect(array $params, array $data, $selected = null) {
         $html = '<select ';
         foreach ($params as $k => $val) {
-            $html.= $k . ' = "' . $val . '"';
+            $html .= $k . ' = "' . $val . '"';
         }
-        $html.='>';
+        $html .= '>';
         foreach ($data as $val => $option) {
             $selected_attr = ($selected && $val == $selected) ? 'selected' : '';
-            $html.= '<option ' . $selected_attr . ' value = "' . $val . '">' . $option . '</option>';
+            $html .= '<option ' . $selected_attr . ' value = "' . $val . '">' . $option . '</option>';
         }
         $html .= '</select>';
 

@@ -5,9 +5,8 @@ use core\Controller;
 use models\ModelBook;
 use classes\Paginator;
 
-class ControllerBook extends Controller
-{
-
+class ControllerBook extends Controller {
+           
     function getAccess($action)
     {
         // $access = isset($_SESSION['user']);
