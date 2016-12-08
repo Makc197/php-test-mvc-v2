@@ -2,7 +2,7 @@
 
 namespace classes;
 
-use core\ViewGridException;
+use classes\exceptions\ViewGridException;
 use core\ViewGridInterface;
 
 class Grid {
@@ -20,6 +20,7 @@ class Grid {
     protected static function filter($items) {
 
         $className = get_class($items[0]);
+
         //класс должен использовать интерфейс
         if (!$items[0] instanceof ViewGridInterface) {
             throw new ViewGridException(sprintf('Class <<%s>> must implements ViewGridInterface !', $className));
@@ -30,8 +31,9 @@ class Grid {
             return ($item instanceof $className);
         });
 
-        if (count($filteritems) !== count($items))
+        if (count($filteritems) !== count($items)) {
             throw new ViewGridException(sprintf('All objects in list must be instance of class <<%s>> !', $className));
+        }
     }
 
     //создается разметка html
@@ -41,11 +43,11 @@ class Grid {
 
         $html = '<table class = "table" >';
 
-        //Последний столбец для actions
+        //Последний столбец для actions - добавляем в массив
         if (isset($config['actions'])) {
             $actionsLabel = isset($config['actionsLabel']) ? $config['actionsLabel'] : 'Actions';
-            $labelsarr['actionsLabel'] = $actionsLabel;
-            $labels = array_merge($labels, $labelsarr);
+            $newlabelsarr['actionsLabel'] = $actionsLabel;
+            $headerlabels = array_merge($labels, $newlabelsarr);
         }
 
         //var_dump($labels);
@@ -53,25 +55,19 @@ class Grid {
         //var_dump($items);
         //var_dump($config);
         //die();
+        //
         //Рисуем шапку таблицы используя HtmlHelper::createTableHeader
-        $html .= \classes\HtmlHelper::createTableHeader($labels);
-
-        //Рисуем строки таблицы 
-        foreach ($items as $item) {
-            // \classes\HtmlHelper::createTableRow($items);
-            $actions = self::createActions($item, $config); //Перенести в HtmlHelper
+        $html .= \classes\HtmlHelper::createTableHeader($headerlabels);
+        
+        //Рисуем строки таблицы - по одной строке для каждого объекта
+        foreach ($items as $modelobject) {
+            //$actions = \classes\HtmlHelper::createActions($modelobject, $config); //Перенести в HtmlHelper
+            $html .= \classes\HtmlHelper::createTableRow2($modelobject, $labels, $config);
         }
 
         $html .= '</table>';
 
         return $html;
-    }
-
-    public function createActions($modelobject, $config) {
-        //Перенести в HtmlHelper 
-        foreach ($config['actions'] as $actName => $lambda) {
-            $html.=$lambda($modelobject).'';//Вызов анонимной функции $lambda - передали из View в $config['actions'] 
-        }
     }
 
 }

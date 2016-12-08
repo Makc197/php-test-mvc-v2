@@ -1,4 +1,5 @@
 <?php
+
 namespace models;
 
 use core\Model;
@@ -13,22 +14,22 @@ class ModelCd extends ModelProduct implements ViewGridInterface {
     public function __construct($type = null, $title = null, $description = null, $price = null, $author = null, $playLenght = null) { // Вызываем конструктор из родительского класса и дополняем его доп атрибутами
         parent::__construct('cd', $title, $description, $price, $author, $playLenght);
         $this->author = $author;
-        $this->playLength = $playLenght;
+        $this->playLenght = $playLenght;
     }
 
     function getAttributeLabels() {
         //Соотношение Поле в БД - Лейбл - для дальнейшей отрисовки View
         return [
-            'id'=>'ID',
-            'type'=>'Тип',
-            'title'=>'Наименование',
-            'description'=>'Описание',
-            'price'=>'Цена',
-            'author'=>'Автор',
-            'playlenght'=>'Продолжительность'
+            'id' => 'ID',
+            'type' => 'Тип',
+            'title' => 'Наименование',
+            'description' => 'Описание',
+            'price' => 'Цена',
+            'author' => 'Автор',
+            'playlenght' => 'Продолжительность'
         ];
     }
-        
+
     public function getAuthor() {
         return $this->author;
     }
@@ -37,20 +38,20 @@ class ModelCd extends ModelProduct implements ViewGridInterface {
         return $this->playLenght;
     }
 
-    public static function getCountOfRows()
-    {
-        $query ="SELECT COUNT(id) c FROM cds;";
+    public static function getCountOfRows() {
+        $query = "SELECT COUNT(id) c FROM cds;";
         $result = self::getMySQLDb()->query($query)->fetch();
-        if(isset($result['c'])) return $result['c'];
+        if (isset($result['c']))
+            return $result['c'];
         return false;
     }
 
     static function get_data(Paginator $paginator = null) {
 
         $data = [];
-        $query ="SELECT * FROM cds p WHERE p.type='cd' ORDER BY id";
+        $query = "SELECT * FROM cds p WHERE p.type='cd' ORDER BY id";
 
-        if($paginator) {
+        if ($paginator) {
             $query .= " LIMIT {$paginator->offset},{$paginator->limit}";
         }
 
@@ -94,34 +95,36 @@ class ModelCd extends ModelProduct implements ViewGridInterface {
         if ($id) {
             //если id есть - update
             /* Было
-             $sql = "UPDATE `cds` SET "
-                    . " `title`='" . $this->getTitle() . "',"
-                    . " `description`='" . $this->getDescription() . "',"
-                    . " `price`='" . $this->getPrice() . "',"
-                    . " `author`='" . $this->getAuthor() . "',"
-                    . " `playlenght`='" . $this->getPlayLenght() . "'"
-                    . " WHERE `id`=" . $id;
+              $sql = "UPDATE `cds` SET "
+              . " `title`='" . $this->getTitle() . "',"
+              . " `description`='" . $this->getDescription() . "',"
+              . " `price`='" . $this->getPrice() . "',"
+              . " `author`='" . $this->getAuthor() . "',"
+              . " `playlenght`='" . $this->getPlayLenght() . "'"
+              . " WHERE `id`=" . $id;
              */
             //Стало
             $allowed = array("title", "description", "price", "author", "playlenght");
             $sql = "UPDATE `cds` SET " . self::pdoSet($allowed, $values) . " WHERE id = :id";
+            //var_dump($sql); 
+            //die;
+
             $stm = self::getMySQLDb()->prepare($sql);
             $values['id'] = $_POST['id'];
             $stm->execute($values);
-
         } else {
             //если id нет - insert
             /* Было
-             $sql = "INSERT INTO `cds` "
-                    . "(`type`, `title`, "
-                    . "`description`, `price`, "
-                    . "`author`, `playlenght`) "
-                    . "VALUES ('cd', "
-                    . "'" . $this->getTitle() . "', "
-                    . "'" . $this->getDescription() . "', "
-                    . "'" . $this->getPrice() . "', "
-                    . "'" . $this->getAuthor() . "', "
-                    . "'" . $this->getPlayLenght() . "')";
+              $sql = "INSERT INTO `cds` "
+              . "(`type`, `title`, "
+              . "`description`, `price`, "
+              . "`author`, `playlenght`) "
+              . "VALUES ('cd', "
+              . "'" . $this->getTitle() . "', "
+              . "'" . $this->getDescription() . "', "
+              . "'" . $this->getPrice() . "', "
+              . "'" . $this->getAuthor() . "', "
+              . "'" . $this->getPlayLenght() . "')";
              */
             //Стало
             $allowed = array("type", "title", "description", "price", "author", "playlenght"); //allowed fields
@@ -129,7 +132,6 @@ class ModelCd extends ModelProduct implements ViewGridInterface {
             $sql = "INSERT INTO `cds` SET " . self::pdoSet($allowed, $values);
             $stm = self::getMySQLDb()->prepare($sql);
             $stm->execute($values);
-
         }
 
         //die($sql);

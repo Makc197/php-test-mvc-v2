@@ -1,4 +1,5 @@
 <?php
+
 namespace core;
 
 use core\Controller;
@@ -13,10 +14,10 @@ class Route {
         $action_name = 'index';
 
         $params = [];
-        
+
         $routes = explode('/', $_SERVER['REQUEST_URI']);
         array_shift($routes);
-                    
+
         // получаем имя контроллера
         if (!empty($routes[0])) {
             $controller_name = $routes[0];
@@ -56,14 +57,14 @@ class Route {
         }
 
         // создаем контроллер
-        $controller_name="controllers\\".$controller_name;
+        $controller_name = "controllers\\" . $controller_name;
         $controller = new $controller_name;
         $action = $action_name;
 
         if (method_exists($controller, $action)) {
             $params = $_REQUEST;
             $method_params = [];
-            
+
             // вызываем действие контроллера
             $ref = new \ReflectionMethod($controller_name, $action);
             foreach ($ref->getParameters() as $argument) {
@@ -71,7 +72,6 @@ class Route {
                     $method_params[] = $params[$argument->name];
             }
             $access = $controller->getAccess($action); //Разрешен доступ ?
-
             //var_dump($access['errors']); die; 
             //Если разрешен - роутим дальше - определяем контроллер и действие - вызываем необх функцию
             if (!$access['errors'] & $access) { // Если нет ошибок и доступ разрешен ???
@@ -90,14 +90,14 @@ class Route {
         }
     }
 
-    function ErrorPage404() {
+    static function ErrorPage404() {
         $host = 'http://' . $_SERVER['HTTP_HOST'] . '/';
         header('HTTP/1.1 404 Not Found');
         header("Status: 404 Not Found");
         header('Location:' . $host . '404');
     }
 
-    function ErrorPage403($errors) {
+    static function ErrorPage403($errors) {
         $host = 'http://' . $_SERVER['HTTP_HOST'] . '/';
         header('HTTP/1.1 403 Access denied');
         header("Status: 403 Access denied");

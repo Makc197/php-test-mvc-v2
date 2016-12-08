@@ -14,29 +14,17 @@
         'description',
         'price',
         'author',
-        'playlenght'
+        'playLenght'
     ];
     //$data - массив объектов CD
     //$config - конфигурация для GRID
     $config = [
         //Массив анонимных функций, в которых генерим ссылки
-        'actions' => [
-            'view' => function ($model) {
-                return '<a href="' . \classes\UrlManager::createUrl('/cd/view', ['id' => $model->getId()]) . '"><span class="glyphicon glyphicon-search"></span></a>';
-            },
-            'update' => function ($model) {
-                return '<a href="' . \classes\UrlManager::createUrl('/cd/update', ['id' => $model->getId()]) . '"><span class="glyphicon glyphicon-pencil"></span></a>';
-            },
-            'delete' => function ($model) {
-                return '<a href="' . \classes\UrlManager::createUrl('/cd/delete', ['id' => $model->getId()]) . '"><span class="glyphicon glyphicon-trash"></span></a>';
-            },
-        ],
+        'actions' => ['view', 'update', 'delete'],
         'actionsLabel' => 'Управление'
     ];
 
-    //var_dump($fields);
     //var_dump($data);
-    //var_dump($config);
     //die();
 
     echo classes\Grid::widget($fields, $data, $config);

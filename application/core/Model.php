@@ -2,9 +2,19 @@
 namespace core;
 
 use classes\DataBase;
+use classes\exceptions\InvalidMethodException;
 
 abstract class Model {
 
+    public function __get($param) {
+        $methodName = 'get'.ucfirst($param);        
+        if(!method_exists($this, $methodName)){
+            throw new InvalidMethodException(
+                    sprintf(InvalidMethodException::MESSAGE, $methodName, get_class($this)));
+        }
+        return $this->$methodName();
+    }
+    
     protected static $db = null;
 
     protected static function getMySQLDb() {
