@@ -8,24 +8,21 @@
     //2й Вариант реализации GRID view
     //Массив полей которые надо вывести
     $fields = [
-        'id',
-        'type',
         'title',
         'description',
         'price',
         'author',
-        'playLenght'
+        'playlenght'
     ];
     //$data - массив объектов CD
     //$config - конфигурация для GRID
     $config = [
-        //Массив анонимных функций, в которых генерим ссылки
+        //'actions' - Массив анонимных функций, в которых генерим ссылки
+        //т.е. определяем какие действия отображать
+        //'actionsLabel' - Название столбца с действиями, если не указывать, то по умолч 'Actions' 
         'actions' => ['view', 'update', 'delete'],
         'actionsLabel' => 'Управление'
     ];
-
-    //var_dump($data);
-    //die();
 
     echo classes\Grid::widget($fields, $data, $config);
     ?>

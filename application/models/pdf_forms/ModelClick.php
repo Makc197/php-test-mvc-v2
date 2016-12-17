@@ -5,10 +5,11 @@ namespace models\pdf_forms;
 use models\ModelXfdf;
 
 class ModelClick extends ModelXfdf {
+
     public function __construct() {
         return parent::__construct(SITE_PATH . "/resources/pdf_forms/click/uc_blank_click.pdf");
     }
-    
+
     public function maping($date) {
 
         //Мапинг HTML - PDF
@@ -59,7 +60,6 @@ class ModelClick extends ModelXfdf {
         $this->setValue('d-1.3', date("Y"));
 
         $this->genirationXFDF();
-
     }
 
 }
