@@ -47,10 +47,10 @@ class ModelXfdf {
         );
         exec($exec);
 
-        echo $exec;
-        die;
+        //echo $exec;
+        //die;
 
-        //unlink($this->resultxfdf_data);
+        unlink($this->resultxfdf_data);
         /*
           if (file_exists($this->resultpdf)) {
           if (ob_get_level()) {
