@@ -1,4 +1,4 @@
-<h1>Задача №1. Расчет длины цепи по координатам точек </h1>
+<h3>Задача №1. Расчет длины цепи по координатам точек </h3>
 
 <form class="form-inline" id="example1" method="post" action="/example1/calculate">
     <div class="form-group">

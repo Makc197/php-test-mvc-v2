@@ -1,4 +1,4 @@
-<h1>Задача №2. Рисуем и сохраняем в BMP</h1>
+<h3>Задача №2. Рисуем и сохраняем в BMP</h3>
 
 <form class="form-inline" id="example2" method="post" action="/example2/drawchar">
 <div class="form-inline">
