@@ -86,9 +86,9 @@ class ControllerExample1 extends Controller {
                 }
             }
 
-            if ($this->isAjaxRequest()) {
-                die(json_encode($_SESSION['xy']));
-            }
+//            if ($this->isAjaxRequest()) {
+//                die(json_encode($_SESSION['xy']));
+//            }
         }
         //Рендерим вьюху
         $this->view->generate('example1_view.php', 'template_view.php', ['data' => $points, 'str' => $str, 'errors' => $errors]);

@@ -61,7 +61,8 @@
                                 <li><a href="/example1/calculate">Точки. Длина цепи.</a></li>
                                 <li><a href="/example2/drawchar">Рисуем и сохраняем BMP</a></li>
                                 <li><a href="/pdfgenerator/index">Генерация PDF формы</a></li>
-                                <li><a href="/example3/animation">Canvas анимация</a></li>
+                                <li><a href="/canvasanimation/animationdraw">Canvas анимация. Рисование</a></li>
+                                <li><a href="/canvasanimation/animationview">Canvas анимация. Просмотр</a></li>
                                 <li class="divider"></li>
                                 <li><a href="#">Отдельная ссылка</a></li>
                             </ul>

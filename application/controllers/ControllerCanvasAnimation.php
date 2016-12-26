@@ -6,22 +6,18 @@ use core\Controller;
 use classes\Point;
 
 //Рисуем анимацию в Canvas
-class ControllerExample3 extends Controller {
-    
-    function action_stopanimation() {
+class ControllerCanvasAnimation extends Controller {
+
+    function action_clear() {
         unset($_SESSION['xy']);
-        header('Location: /example3/animation');
+        header('Location: /canvasanimation/animationdraw');
     }
-    
-    function action_animation (){
-       
+
+    function action_animationdraw() {
         $errors = [];
         $points = [];
         $str = '';
-       
-       //var_dump($_SESSION['xy']); die;
-        
-       //Пересчитываем массив $points из $_SESSION['xy'] при Submit из вьюхи
+
         if (!empty($_SESSION['xy'])) {
             foreach ($_SESSION['xy'] as $value) {
                 $p = new Point($value['x'], $value['y']);
@@ -30,8 +26,7 @@ class ControllerExample3 extends Controller {
             //Возвращаем массив точек
             $points = Point::allPoints();
         }
-        
-        //Добавляем в массив $_SESSION['xy'] координаты точек асинхронно - из js\example3
+
         if (!empty($_POST['Math_x']) && !empty($_POST['Math_y'])) {
             $post = $_POST;
 
@@ -47,16 +42,31 @@ class ControllerExample3 extends Controller {
             }
 
             $_SESSION['xy'][] = ['x' => $x, 'y' => $y];
-			
-            //Обновляем массив точек
-            //$points = Point::allPoints(); 
-            
-            //if ($this->isAjaxRequest()) {
-            //    die(json_encode($_SESSION['xy']));
-            //}
         }
-                
+
         //Рендерим вьюху
-        $this->view->generate('example3_view.php', 'template_view.php', ['data' => $points, 'str' => $str, 'errors' => $errors]);
+        $this->view->generate('canvasanimation1_view.php', 'template_view.php', ['data' => $points, 'str' => $str, 'errors' => $errors]);
     }
+
+    function action_animationview() {
+
+        $points = [];
+
+        if (!empty($_SESSION['xy'])) {
+            foreach ($_SESSION['xy'] as $value) {
+                $p = new Point($value['x'], $value['y']);
+            }
+
+            //Возвращаем массив точек
+            $points = Point::allPoints();
+        }
+
+        //Рендерим вьюху
+        $this->view->generate('canvasanimation2_view.php', 'template_view.php', ['data' => $points]);
+    }
+
+    function action_clearanimationview() {
+        header('Location: /canvasanimation/animationview');
+    }
+
 }
