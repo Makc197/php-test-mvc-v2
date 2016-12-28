@@ -1,10 +1,11 @@
-<h3>Задача №3. Анимация Canvas. Режим рисования и предпросмотра</h3>
+<h3>Задача №3. Анимация Canvas. Рисование линий и просмотр</h3>
 
-<form class="form-inline" id="canvasanimation" method="post" action="/canvasanimation/animationdraw">
+<form class="form-inline" id="canvasanimation" method="post" action="/canvasanimation/animation1">
+    <a href='/canvasanimation/clear' class="btn btn-default">Clear</a>
     <button name="start" id="startbutton" class="btn btn-default">Start animation</button>
     <button name="stop" id="stopbutton" class="btn btn-default" disabled>Stop animation</button>
-    <a href='/canvasanimation/clear' class="btn btn-default">Clear</a>
-    <a href='/canvasanimation/animationview' class="btn btn-default">ToViewAnimation</a>
+
+    <a href='/canvasanimation/animation2' class="btn btn-default">Next Animation --> </a>
 </form>
 
 <br>
@@ -22,5 +23,6 @@
 <script defer> var ALL_POINTS = <?=json_encode($data)?> 
 </script> 
 
-<!--По запросу запускаем скрипт js/canvasanimationdraw.js - анимация в Canvas-->
-<script src="/js/canvasanimationdraw.js" defer></script>
+<!--По запросу запускаем скрипт js/canvasanimation1.js - анимация в Canvas-->
+<script src="/js/canvasanimation1.js?<?=time();?>" defer></script>
+<!--time() - Для того чтобы не кешировался js - простой способ -->

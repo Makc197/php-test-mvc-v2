@@ -1,10 +1,11 @@
-<h3>Задача №3. Анимация Canvas. Режим просмотра</h3>
+<h3>Задача №3. Анимация Canvas. Объекты</h3>
 
-<form class="form-inline" id="canvasanimationview">
+<form class="form-inline" id="canvasanimation2">
+    <a href='/canvasanimation/animation1' class="btn btn-default"> <-- Prev Animation</a>
+
     <button name="start" id="startbutton" class="btn btn-default">Start animation</button>
     <button name="stop" id="stopbutton" class="btn btn-default" disabled>Stop animation</button>
-    <a href='/canvasanimation/clearanimationview' class="btn btn-default">Clear</a>
-    <a href='/canvasanimation/animationdraw' class="btn btn-default">ToDrawAnimation</a>
+    <a href='/canvasanimation/clearanimation2' class="btn btn-default">Clear</a>
 </form>
 
 <br>
@@ -22,4 +23,4 @@
 </script>
 
 <!--По запросу запускаем скрипт js/canvasanimationview.js - анимация в Canvas-->
-<script src="/js/canvasanimationview.js" defer></script>
+<script src="/js/canvasanimation2.js?<?=time();?>" defer></script>

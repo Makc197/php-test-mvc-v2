@@ -2,6 +2,7 @@
 session_start(); //старт сессии
 
 use classes\DataBase;
+use classes\exceptions\RouterException;
 use core\Route;
 
 //Старая версия autoloader'а
@@ -29,4 +30,20 @@ use core\Route;
 $dsn = 'mysql:host=localhost;dbname='.DB_NAME.';charset=utf8';
 DataBase::init(array('dsn'=>$dsn,'user'=>DB_USER,'password'=>DB_PASS));
 
-Route::start(); // запускаем маршрутизатор
+try{
+    Route::start(); // запускаем маршрутизатор
+} catch(RouterException $e) {
+
+    switch($e->getCode())
+    {
+        case 404:
+            Route::ErrorPage404($e->getMessage());
+            break;
+        case 403:
+            Route::ErrorPage403($e->getMessage());
+            break;
+        default:
+            die('!!!');
+    }
+
+}

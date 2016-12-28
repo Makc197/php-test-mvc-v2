@@ -2,8 +2,8 @@
 
 namespace core;
 
-use core\Controller;
 use controllers;
+use classes\exceptions\RouterException;
 
 class Route {
 
@@ -48,16 +48,13 @@ class Route {
         if (file_exists($controller_path)) {
             include "application/controllers/" . $controller_file;
         } else {
-            /*
-              правильно было бы кинуть здесь исключение,
-              но для упрощения сразу сделаем редирект на страницу 404
-             */
-            //die('404');
-            Route::ErrorPage404();
+            throw new RouterException('Страница не существует.', 404);
+            //Route::ErrorPage404();
         }
 
         // создаем контроллер
         $controller_name = "controllers\\" . $controller_name;
+
         $controller = new $controller_name;
         $action = $action_name;
 
@@ -72,36 +69,37 @@ class Route {
                     $method_params[] = $params[$argument->name];
             }
             $access = $controller->getAccess($action); //Разрешен доступ ?
-            //var_dump($access['errors']); die; 
             //Если разрешен - роутим дальше - определяем контроллер и действие - вызываем необх функцию
             if (!$access['errors'] & $access) { // Если нет ошибок и доступ разрешен ???
                 call_user_func_array(array($controller, $action), array_values($method_params));
-            } elseif ($access['errors']) { // Если есть ошибки - отображаем ???
-                $controller->view->generate('main_view.php', 'template_view.php', ['errors' => $access['errors']]);
             }
+            //elseif ($access['errors']) { // Если есть ошибки - отображаем ???
+                //$controller->view->generate('main_view.php', 'template_view.php', ['errors' => $access['errors']]);
+            //}
             //иначе - ошибка роутинга - ошибка 403
             else {
-                Route::ErrorPage403();
+                throw new RouterException('Доступ запрещен',403);
+                //Route::ErrorPage403();
             }
         } else {
-            // здесь также разумнее было бы кинуть исключение
             // ошибка 404 - страница не найдена
-            Route::ErrorPage404();
+            throw new RouterException('Страница не найдена',404);
+            //Route::ErrorPage404();
         }
     }
 
-    static function ErrorPage404() {
+    static function ErrorPage404($message) {
         $host = 'http://' . $_SERVER['HTTP_HOST'] . '/';
         header('HTTP/1.1 404 Not Found');
         header("Status: 404 Not Found");
-        header('Location:' . $host . '404');
+        die($message);
     }
 
-    static function ErrorPage403($errors) {
+    static function ErrorPage403($message) {
         $host = 'http://' . $_SERVER['HTTP_HOST'] . '/';
         header('HTTP/1.1 403 Access denied');
         header("Status: 403 Access denied");
-        header('Location:' . $host . '403');
+        die($message);
     }
 
 }

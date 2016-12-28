@@ -10,10 +10,10 @@ class ControllerCanvasAnimation extends Controller {
 
     function action_clear() {
         unset($_SESSION['xy']);
-        header('Location: /canvasanimation/animationdraw');
+        header('Location: /canvasanimation/animation1');
     }
 
-    function action_animationdraw() {
+    function action_animation1() {
         $errors = [];
         $points = [];
         $str = '';
@@ -48,7 +48,7 @@ class ControllerCanvasAnimation extends Controller {
         $this->view->generate('canvasanimation1_view.php', 'template_view.php', ['data' => $points, 'str' => $str, 'errors' => $errors]);
     }
 
-    function action_animationview() {
+    function action_animation2() {
 
         $points = [];
 
@@ -65,8 +65,8 @@ class ControllerCanvasAnimation extends Controller {
         $this->view->generate('canvasanimation2_view.php', 'template_view.php', ['data' => $points]);
     }
 
-    function action_clearanimationview() {
-        header('Location: /canvasanimation/animationview');
+    function action_clearanimation2() {
+        header('Location: /canvasanimation/animation2');
     }
 
 }
