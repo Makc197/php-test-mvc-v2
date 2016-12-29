@@ -95,8 +95,6 @@ jQuery(function ($) {
             if (!coordsInCanvas)
                 return;
 
-            $('#example3').find('[name=Math_x]').val(coordsInCanvas.x);
-            $('#example3').find('[name=Math_y]').val(coordsInCanvas.y);
             allCoords.push(coordsInCanvas);
             sendCoorinate(coordsInCanvas, function () {
                 drawLines(canvas, allCoords);
