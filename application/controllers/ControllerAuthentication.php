@@ -15,7 +15,7 @@ Class ControllerAuthentication extends Controller {
     function action_logout($login = null, $password = null) {
         unset($_SESSION['user']);
         session_destroy();
-        header('Location: /cd/index');
+        header('Location: /main/index');
     }
 
     function action_login($login = null, $password = null) {

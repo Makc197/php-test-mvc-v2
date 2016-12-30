@@ -1,7 +1,7 @@
 <?php
 // Задаем константы:
 define ('DS', DIRECTORY_SEPARATOR); // разделитель для путей к файлам
-$sitePath = realpath(__DIR__ . DS);
+$sitePath = realpath($_SERVER['DOCUMENT_ROOT']. DS);
 define ('SITE_PATH', $sitePath); // путь к корневой папке сайта
  
 // Для подключения к бд

@@ -5,6 +5,9 @@ class Captcha {
     static function write() {
         // Создание изображения
         //$img = imageCreateTrueColor(500, 300);
+        
+        //var_dump(SITE_PATH); die;
+        
         $img = imageCreateFromJpeg(SITE_PATH . '\images\noise.jpg');
         $color = imageColorAllocate($img, 64, 65, 68);
         imageAntiAlias($img, true);

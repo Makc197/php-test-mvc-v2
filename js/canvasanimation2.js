@@ -10,34 +10,32 @@ jQuery(function ($) {
     var startButton = document.getElementById('startbutton');
     var stopButton = document.getElementById('stopbutton');
     var circleButton = document.getElementById('drawcircle');
-    var timerId;
+    var rectButton = document.getElementById('drawrectangle');
+    var lineButton = document.getElementById('drawline');
 
+    var timerId;
     //Создание графических объектов
     //Определяем массив для хранения объектов
     var objects = [];
-
     //Тип объекта который собираемся создать
     var objtype;
     //var allCoords = ALL_POINTS;
 
     var canvas = document.getElementById('bcanvas');
     var ctx = canvas.getContext('2d');
-
     //Анимация - отрисовка массива объектов
+
     function drawObjectsBySteps(objects) {
 
         timerId = setTimeout(function go() {
 
             var obj = objects[0];
             objects = objects.slice(1);
-
             //console.log(obj.draw);
             obj.draw();
-
             if (objects.length)
                 timerId = setTimeout(go, 1000);
         }, 0);
-
     }
 
     //Определяем объект - Фигура
@@ -89,7 +87,6 @@ jQuery(function ($) {
         ctx.rect(this.coord_x, this.coord_y, this.width, this.height);
         ctx.fill();
     };
-
     //Класс Line для определения параметров линий
     function Line(canvas, params) {
         params = params || {}; //Парсим массив params
@@ -120,15 +117,13 @@ jQuery(function ($) {
         //event.preventDefault();
         //console.log(event);
         console.log('Start');
-
         //1 - Создаем объект Окружность
         var circle1 = new Circle(ctx, {
             'x': 30,
             'y': 30,
             'radius': 15,
-            'color': COLOR_RED
+            'color': COLOR_GREEN
         });
-
         //Добавляем созданную окружность в массив объектов
         objects.push(circle1);
         //Рисуем окружность - вызов метода draw() у объекта circle1
@@ -142,10 +137,8 @@ jQuery(function ($) {
             'height': 80,
             'color': COLOR_BLUE
         });
-
         //Добавляем созданный прямоугольник в массив объектов
         objects.push(rect1);
-
         //Рисуем квадрат - вызов метода draw()
         //rect1.draw();
 
@@ -160,15 +153,12 @@ jQuery(function ($) {
             'y2': 210,
             'color': COLOR_ORANGE
         });
-
         //Добавляем созданную линию в массив объектов
         objects.push(line1);
-
         //Рисуем линию - вызов метода draw()
         //line1.draw();
 
         console.log(objects);
-
         //Просмотр анимации - рисование объектов
         drawObjectsBySteps(objects);
     };
@@ -180,60 +170,100 @@ jQuery(function ($) {
         clearTimeout(timerId);
     };
 
-    circleButton.onclick = function () {
+    circleButton.onclick = function (event) {
+        event.preventDefault();
         objtype = 'circle';
     }
 
-    canvas.onmousedown = function (e, objtype) {
+    rectButton.onclick = function (event) {
+        event.preventDefault();
+        objtype = 'rectangle';
+    }
+
+    lineButton.onclick = function (event) {
+        event.preventDefault();
+        objtype = 'line';
+    }
+
+    var coordsInCanvas = [];
+    canvas.onmousedown = function (e) {
+        console.log('onmousedown');
+        coordsInCanvas[0] = getMousePos(canvas, e);
+        console.log(coordsInCanvas[0]);
+    };
+
+    canvas.onmouseup = function (e) {
+        console.log('onmouseup');
+        coordsInCanvas[1] = getMousePos(canvas, e);
+        console.log(coordsInCanvas[1]);
+        drawObj(objtype, coordsInCanvas);
+    };
+
+    function drawObj(objtype, coordsInCanvas) {
         console.log(objtype);
-
-        var coordsInCanvas = getMousePos(canvas, e);
-        if (!coordsInCanvas)
-            return;
-
-        var x0 = coordsInCanvas.x;
-        var y0 = coordsInCanvas.y;
-        console.log(x0 + ' : ' + y0);
-
+        console.log(coordsInCanvas);
         switch (objtype) {
-
             case 'circle':
+                var x1 = coordsInCanvas[1]['x'];
+                var y1 = coordsInCanvas[1]['y'];
+                console.log(coordsInCanvas[1]);
+                var x0 = coordsInCanvas[0]['x'];
+                var y0 = coordsInCanvas[0]['y'];
+                var r = Math.sqrt(Math.pow((x1 - x0), 2) + Math.pow((y1 - y0), 2));
+                console.log('r=' + r);
 
-                var r = 0;
-                console.log(x0 + ' : ' + y0 + ' r=' + r);
-                canvas.onmousemove = function (e) {
-                    coordsInCanvas = getMousePos(canvas, e);
-                    var x = coordsInCanvas.x;
-                    var y = coordsInCanvas.y;
+                var circle = new Circle(ctx, {
+                    'x': x0,
+                    'y': y0,
+                    'radius': r,
+                    'color': COLOR_RED
+                });
 
-                    r = Math.sqrt(Math.pow((x - x0), 2) + Math.pow((y - y0), 2));
-                    console.log(x + ' : ' + 0 + ' r=' + r);
-                };
+                circle.draw();
 
-                canvas.onmouseup = function (e) {
-                    console.log('MouseUp');
-                    console.log(x + ' : ' + 0 + ' r=' + r);
-                    var circle = new Circle(ctx, {
-                        'x': x0,
-                        'y': y0,
-                        'radius': r,
-                        'color': COLOR_RED
-                    });
-
-                    circle.draw();
-
-                    canvas.onmousemove = undefined;
-                };
-
-                objtype = undefined;
                 break;
+            case 'rectangle':
+                var x1 = coordsInCanvas[1]['x'];
+                var y1 = coordsInCanvas[1]['y'];
+                console.log(coordsInCanvas[1]);
+                var x0 = coordsInCanvas[0]['x'];
+                var y0 = coordsInCanvas[0]['y'];
+                var wth = x1 - x0;
+                console.log('width=' + wth);
+                var hgt = y1 - y0;
+                console.log('height=' + hgt);
 
+                var rect = new Rectangle(ctx, {
+                    'x': x0,
+                    'y': y0,
+                    'width': wth,
+                    'height': hgt,
+                    'color': COLOR_BLUE
+                });
+
+                rect.draw();
+                break;
+                
             case 'line':
+                var x1 = coordsInCanvas[1]['x'];
+                var y1 = coordsInCanvas[1]['y'];
+                console.log(coordsInCanvas[1]);
+                var x0 = coordsInCanvas[0]['x'];
+                var y0 = coordsInCanvas[0]['y']
+
+                var line = new Line(ctx, {
+                    'x1': x0,
+                    'y1': y0,
+                    'x2': x1,
+                    'y2': y1,
+                    'color': COLOR_GREEN
+                });
+
+                line.draw();
                 break;
         }
-
-
-    };
+    }
+    ;
 
     function getMousePos(canvas, evt) {
         var rect = canvas.getBoundingClientRect();
@@ -244,8 +274,6 @@ jQuery(function ($) {
             y: evt.clientY - rect.top
         };
     }
-
-
 
 }
 );
